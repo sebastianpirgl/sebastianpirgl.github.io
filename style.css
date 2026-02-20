@@ -6,7 +6,6 @@
   box-sizing: border-box;
 }
 
-/* základ */
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: #fff;
@@ -20,25 +19,54 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-header {
+/* --- HEADER LAYOUT --- */
+
+header.header {
   position: absolute;
   top: 24px;
+  left: 32px;
   right: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+/* Brand vlevo (PIRGL) */
+.brand {
+  text-decoration: none;
+  color: #000;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.brand:hover {
+  opacity: 0.65;
+  transform: translateY(-1px);
+}
+
+/* --- NAV --- */
+
 .nav a {
-  position: relative;
-  display: inline-block;
   text-decoration: none;
   color: #000;
   margin-left: 24px;
   font-weight: 400;
   font-size: 14px;
+  position: relative;
+  display: inline-block;
   padding: 2px 0;
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
-/* tenká linka pod textem (hover) */
+/* jemný hover efekt */
+.nav a:hover {
+  opacity: 0.65;
+  transform: translateY(-1px);
+}
+
+/* tenká linka pod textem */
 .nav a::after {
   content: "";
   position: absolute;
@@ -53,17 +81,12 @@ header {
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.nav a:hover {
-  opacity: 0.65;
-  transform: translateY(-1px);
-}
-
 .nav a:hover::after {
   opacity: 0.55;
   transform: scaleX(1);
 }
 
-/* aktivní stránka (volitelné) */
+/* aktivní stránka (pokud někdy přidáš class="active") */
 .nav a.active {
   opacity: 0.9;
 }
@@ -72,6 +95,8 @@ header {
   opacity: 0.65;
   transform: scaleX(1);
 }
+
+/* --- MAIN CONTENT --- */
 
 main {
   flex: 1;
@@ -94,6 +119,8 @@ p {
   opacity: 0.75;
 }
 
+/* --- FOOTER --- */
+
 footer {
   position: absolute;
   bottom: 24px;
@@ -102,12 +129,17 @@ footer {
   letter-spacing: 0.1em;
 }
 
-/* respekt pro uživatele se snížením pohybu */
+/* --- ACCESSIBILITY: reduced motion --- */
+
 @media (prefers-reduced-motion: reduce) {
-  .nav a, .nav a::after {
+  .nav a,
+  .nav a::after,
+  .brand {
     transition: none;
   }
-  .nav a:hover {
+
+  .nav a:hover,
+  .brand:hover {
     transform: none;
   }
 }
