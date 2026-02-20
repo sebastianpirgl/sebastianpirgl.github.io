@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* základ */
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #fff;
+  color: #000;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  /* jemnější anti-aliasing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+header {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+}
+
+.nav a {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: #000;
+  margin-left: 24px;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 2px 0;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+/* tenká linka pod textem (hover) */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: #000;
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: center;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.nav a:hover {
+  opacity: 0.65;
+  transform: translateY(-1px);
+}
+
+.nav a:hover::after {
+  opacity: 0.55;
+  transform: scaleX(1);
+}
+
+/* aktivní stránka (volitelné) */
+.nav a.active {
+  opacity: 0.9;
+}
+
+.nav a.active::after {
+  opacity: 0.65;
+  transform: scaleX(1);
+}
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.75;
+}
+
+footer {
+  position: absolute;
+  bottom: 24px;
+  right: 32px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+/* respekt pro uživatele se snížením pohybu */
+@media (prefers-reduced-motion: reduce) {
+  .nav a, .nav a::after {
+    transition: none;
+  }
+  .nav a:hover {
+    transform: none;
+  }
+}
