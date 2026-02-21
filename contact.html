@@ -22,27 +22,21 @@
     <h1>Contact</h1>
 
     <p>
-      For inquiries:<br>
-      <a class="contact-link" href="mailto:info@pirgl.com">info@pirgl.com</a>
+      <span class="email-text">info at pirgl.com</span>
     </p>
 
     <form id="contactForm" class="contact-form">
       <label>
         Your email
-        <input type="email" id="from" required autocomplete="email" placeholder="you@example.com">
+        <input type="email" id="from" placeholder="you@example.com" required>
       </label>
 
       <label>
         Message
-        <textarea id="msg" rows="6" required placeholder="Write your message..."></textarea>
+        <textarea id="msg" rows="6" placeholder="Write your message…" required></textarea>
       </label>
 
-      <button id="submitBtn" type="submit">
-        <span class="spinner" aria-hidden="true"></span>
-        <span class="btn-text">Open email draft</span>
-      </button>
-
-      <div id="status" class="form-status" aria-live="polite"></div>
+      <button type="submit" class="btn">Open email draft</button>
     </form>
   </div>
 </main>
@@ -59,28 +53,10 @@
     const from = document.getElementById("from").value.trim();
     const msg = document.getElementById("msg").value.trim();
 
-    const btn = document.getElementById("submitBtn");
-    const btnText = btn.querySelector(".btn-text");
-    const status = document.getElementById("status");
-
-    btn.disabled = true;
-    btn.classList.add("is-loading");
-    btnText.textContent = "Preparing draft...";
-    status.textContent = "Thanks. Your email client will open in a moment.";
-    status.classList.add("ok");
-
     const subject = encodeURIComponent("Inquiry from pirgl.com");
-    const body = encodeURIComponent(`From: ${from}\n\n${msg}`);
+    const body = encodeURIComponent(From: ${from}\n\n${msg});
 
-    setTimeout(() => {
-      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-
-      setTimeout(() => {
-        btn.disabled = false;
-        btn.classList.remove("is-loading");
-        btnText.textContent = "Open email draft";
-      }, 1200);
-    }, 450);
+    window.location.href = mailto:${to}?subject=${subject}&body=${body};
   });
 </script>
 
