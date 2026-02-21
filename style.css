@@ -13,13 +13,11 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-
-  /* jemnější anti-aliasing */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- HEADER LAYOUT --- */
+/* --- HEADER --- */
 
 header.header {
   position: absolute;
@@ -29,10 +27,8 @@ header.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  column-gap: 12px;
 }
 
-/* Brand vlevo (PIRGL) */
 .brand {
   text-decoration: none;
   color: #000;
@@ -56,18 +52,15 @@ header.header {
   font-weight: 400;
   font-size: 14px;
   position: relative;
-  display: inline-block;
   padding: 2px 0;
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
-/* jemný hover efekt */
 .nav a:hover {
   opacity: 0.65;
   transform: translateY(-1px);
 }
 
-/* tenká linka pod textem */
 .nav a::after {
   content: "";
   position: absolute;
@@ -78,26 +71,20 @@ header.header {
   background: #000;
   opacity: 0;
   transform: scaleX(0.6);
-  transform-origin: center;
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.nav a:hover::after {
-  opacity: 0.55;
-  transform: scaleX(1);
-}
-
-/* aktivní stránka (pokud někdy přidáš class="active") */
-.nav a.active {
-  opacity: 0.9;
-}
-
+.nav a:hover::after,
 .nav a.active::after {
   opacity: 0.65;
   transform: scaleX(1);
 }
 
-/* --- MAIN CONTENT --- */
+.nav a.active {
+  opacity: 0.9;
+}
+
+/* --- MAIN --- */
 
 main {
   flex: 1;
@@ -121,114 +108,15 @@ p {
   opacity: 0.75;
 }
 
-p span.signature {
-  opacity: 0.6;
-  font-size: 14px;
-}
-
-.manifesto {
-  margin-top: 36px;
-  max-width: 520px;
-  margin-left: auto;
-  margin-right: auto;
+/* Email text (bez mailto) */
+.email-text {
   font-size: 15px;
+  letter-spacing: 0.02em;
   opacity: 0.7;
+  user-select: text;
 }
 
-/* --- FOOTER --- */
-
-footer {
-  position: absolute;
-  bottom: calc(24px + env(safe-area-inset-bottom));
-  right: 32px;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-}
-
-/* --- ACCESSIBILITY: reduced motion --- */
-
-@media (prefers-reduced-motion: reduce) {
-  .nav a,
-  .nav a::after,
-  .brand {
-    transition: none;
-  }
-
-  .nav a:hover,
-  .brand:hover {
-    transform: none;
-  }
-}
-
-/* --- MOBILE TWEAKS --- */
-@media (max-width: 600px) {
-
-  header.header {
-    top: 18px;
-    left: 18px;
-    right: 18px;
-    column-gap: 12px;
-  }
-
-  .nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    row-gap: 6px;
-  }
-
-  .nav a {
-    margin-left: 16px;
-    font-size: 13px;
-  }
-
-  .brand {
-    font-size: 13px;
-    letter-spacing: 0.08em;
-  }
-
-  main {
-    padding: 28px 18px;
-  }
-
-  h1 {
-    font-size: 40px;
-    line-height: 1.08;
-    margin-bottom: 14px;
-  }
-
-  p {
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  .manifesto {
-    margin-top: 26px;
-    font-size: 14px;
-  }
-
-  footer {
-  bottom: calc(18px + env(safe-area-inset-bottom));
-  right: 18px;
-  font-size: 11px;
-  letter-spacing: 0.09em;
-  }
-}
-
-/* ===== Contact page extras (safe to append) ===== */
-
-.contact-link {
-  color: #000;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(0,0,0,0.55);
-  padding-bottom: 2px;
-  transition: opacity 180ms ease, transform 180ms ease;
-}
-
-.contact-link:hover {
-  opacity: 0.65;
-  transform: translateY(-1px);
-}
+/* --- CONTACT FORM --- */
 
 .contact-form {
   margin-top: 28px;
@@ -260,8 +148,7 @@ footer {
   outline: none;
   background: #fff;
   color: #000;
-
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .contact-form input:focus,
@@ -274,20 +161,13 @@ footer {
   margin-top: 6px;
   font-family: inherit;
   font-size: 13px;
-  letter-spacing: 0.02em;
-  padding: 12px 14px;
+  padding: 12px 16px;
   border-radius: 999px;
-  border: 1px solid rgba(0,0,0,0.18);
+  border: none;
   background: #000;
   color: #fff;
   cursor: pointer;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  transition: opacity 180ms ease, transform 180ms ease, background 180ms ease;
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
 .contact-form button:hover {
@@ -299,58 +179,63 @@ footer {
   transform: translateY(0);
 }
 
-.contact-form button[disabled] {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
+/* --- FOOTER --- */
+
+footer {
+  position: absolute;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  right: 32px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
 }
 
-/* Tiny spinner */
-.spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255,255,255,0.35);
-  border-top-color: rgba(255,255,255,1);
-  border-radius: 999px;
-  animation: spin 0.8s linear infinite;
-  display: none;
-}
+/* --- REDUCED MOTION --- */
 
-button.is-loading .spinner {
-  display: inline-block;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.form-status {
-  min-height: 1.2em;
-  font-size: 13px;
-  opacity: 0.7;
-  text-align: center;
-  margin-top: 2px;
-}
-
-.form-status.ok {
-  opacity: 0.85;
-}
-
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .contact-link,
-  .contact-form input,
-  .contact-form textarea,
+  .nav a,
+  .nav a::after,
+  .brand,
   .contact-form button {
     transition: none;
   }
 
-  .contact-link:hover,
+  .nav a:hover,
+  .brand:hover,
   .contact-form button:hover {
     transform: none;
   }
+}
 
-  .spinner {
-    animation: none;
+/* --- MOBILE --- */
+
+@media (max-width: 600px) {
+  header.header {
+    top: 18px;
+    left: 18px;
+    right: 18px;
+  }
+
+  .nav a {
+    margin-left: 16px;
+    font-size: 13px;
+  }
+
+  .brand {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+
+  main {
+    padding: 28px 18px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  footer {
+    bottom: calc(18px + env(safe-area-inset-bottom));
+    right: 18px;
+    font-size: 11px;
   }
 }
