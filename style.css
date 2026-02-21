@@ -102,10 +102,35 @@ h1 {
   margin-bottom: 16px;
 }
 
+/* body paragraphs */
 p {
   font-size: 16px;
   line-height: 1.6;
   opacity: 0.75;
+  margin-top: 16px; /* mezera mezi odstavci */
+}
+
+/* první odstavec hned pod h1 ať není moc odskočený */
+h1 + p {
+  margin-top: 14px;
+}
+
+/* podpis řádek (Visca...) */
+.signature {
+  display: inline-block;
+  margin-top: 10px;   /* mezera nad podpisem uvnitř odstavce */
+  opacity: 0.6;
+  font-size: 14px;
+}
+
+/* manifesto block */
+.manifesto {
+  margin-top: 28px;   /* mezera mezi p a manifesto */
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 15px;
+  opacity: 0.7;
 }
 
 /* Email text (bez mailto) */
