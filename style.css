@@ -58,7 +58,7 @@ header.header {
 
 .nav a:hover {
   opacity: 0.65;
-  transform: translateY(-1px);
+  transform: none;
 }
 
 .nav a::after {
