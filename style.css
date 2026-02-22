@@ -52,7 +52,10 @@ header.header {
   font-weight: 400;
   font-size: 14px;
   position: relative;
-  padding: 2px 0;
+
+  /* FIX 1: větší hitbox, aby hover nepadal */
+  padding: 6px 0;
+
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
@@ -65,12 +68,20 @@ header.header {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -3px;
+
+  /* underline vizuálně stejně, jen bude “bezpečnější” */
+  bottom: 1px;
+
   width: 100%;
   height: 1px;
   background: #000;
   opacity: 0;
   transform: scaleX(0.6);
+  transform-origin: center;
+
+  /* FIX 2: underline nesmí chytat myš */
+  pointer-events: none;
+
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
@@ -107,7 +118,7 @@ p {
   font-size: 16px;
   line-height: 1.6;
   opacity: 0.75;
-  margin-top: 16px; /* mezera mezi odstavci */
+  margin-top: 16px;
 }
 
 /* první odstavec hned pod h1 ať není moc odskočený */
@@ -118,14 +129,14 @@ h1 + p {
 /* podpis řádek (Visca...) */
 .signature {
   display: inline-block;
-  margin-top: 10px;   /* mezera nad podpisem uvnitř odstavce */
+  margin-top: 10px;
   opacity: 0.6;
   font-size: 14px;
 }
 
 /* manifesto block */
 .manifesto {
-  margin-top: 28px;   /* mezera mezi p a manifesto */
+  margin-top: 28px;
   max-width: 520px;
   margin-left: auto;
   margin-right: auto;
