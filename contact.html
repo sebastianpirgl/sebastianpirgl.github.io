@@ -54,9 +54,9 @@
     const msg = document.getElementById("msg").value.trim();
 
     const subject = encodeURIComponent("Inquiry from pirgl.com");
-    const body = encodeURIComponent(From: ${from}\n\n${msg});
+    const body = encodeURIComponent(`From: ${from}\n\n${msg}`);
 
-    window.location.href = mailto:${to}?subject=${subject}&body=${body};
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
   });
 </script>
 
