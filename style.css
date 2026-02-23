@@ -275,3 +275,134 @@ footer {
     font-size: 11px;
   }
 }
+
+/* ===== About gate (append-only) ===== */
+
+.gate {
+  width: min(680px, 92vw);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gate-note {
+  margin-top: 14px;
+  opacity: 0.7;
+}
+
+.gate-card {
+  margin-top: 22px;
+  width: min(520px, 92vw);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  padding: 18px 18px;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 14px;
+}
+
+.gate-prompt {
+  margin-top: 0;
+  font-size: 14px;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.gate-row {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.gate-input {
+  flex: 1;
+  width: 100%;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 12px 12px;
+  border: 1px solid rgba(0,0,0,0.14);
+  border-radius: 12px;
+  outline: none;
+  background: #fff;
+  color: #000;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.gate-input:focus {
+  border-color: rgba(0,0,0,0.45);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+}
+
+.gate-btn {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.18);
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 180ms ease, transform 180ms ease;
+  white-space: nowrap;
+}
+
+.gate-btn:hover {
+  opacity: 0.86;
+  transform: translateY(-1px);
+}
+
+.gate-btn:active {
+  transform: translateY(0);
+}
+
+.gate-hint {
+  margin-top: 10px;
+  font-size: 13px;
+  opacity: 0.55;
+}
+
+.gate-error {
+  margin-top: 8px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.gate-mcq {
+  margin-top: 14px;
+}
+
+.mcq-options {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.mcq-option {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 13px;
+  opacity: 0.85;
+  user-select: none;
+}
+
+.mcq-option input {
+  accent-color: #000;
+}
+
+.about-content {
+  width: min(680px, 92vw);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.resume-placeholder {
+  margin-top: 18px;
+  width: min(520px, 92vw);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 18px;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  opacity: 0.8;
+}
