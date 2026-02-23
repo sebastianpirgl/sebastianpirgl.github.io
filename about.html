@@ -19,14 +19,329 @@
 
 <main>
   <div>
-    <h1>About</h1>
-    <p>Coming soon.</p>
+
+    <!-- Gate -->
+    <section id="gate" class="gate">
+      <h1>About</h1>
+
+      <p class="gate-note"><em>Not everything here is meant for everyone.</em></p>
+
+      <div id="gateCard" class="gate-card">
+        <p id="gatePrompt" class="gate-prompt"></p>
+
+        <!-- Step 1 + 2: text answer -->
+        <div id="gateTextWrap" class="gate-row">
+          <input id="gateInput" class="gate-input" type="text" autocomplete="off" spellcheck="false" placeholder="">
+          <button id="gateBtn" class="gate-btn" type="button">Continue</button>
+        </div>
+
+        <!-- Step 3: MCQ -->
+        <div id="gateMcqWrap" class="gate-mcq" hidden>
+          <div id="mcqOptions" class="mcq-options"></div>
+          <button id="mcqBtn" class="gate-btn" type="button">Unlock</button>
+        </div>
+
+        <p id="gateHint" class="gate-hint"></p>
+        <p id="gateError" class="gate-error" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- About content (hidden until unlocked) -->
+    <section id="aboutContent" class="about-content" hidden>
+      <h1>About</h1>
+
+      <p>
+        <span class="email-text">Résumé coming soon.</span>
+      </p>
+
+      <!-- Placeholder block: when you're ready, swap this for iframe resume.pdf -->
+      <div class="resume-placeholder">
+        <p>Résumé coming soon.</p>
+      </div>
+    </section>
+
   </div>
 </main>
 
 <footer>
   SEBASTIAN PIRGL
 </footer>
+
+<script>
+  (function () {
+    // Session-only unlock (no localStorage)
+    const KEY_UNLOCKED = "pirgl_about_unlocked_v1";
+    const KEY_STEP = "pirgl_about_step_v1";
+    const KEY_Q2_ID = "pirgl_about_q2_id_v1";
+    const KEY_Q3_ID = "pirgl_about_q3_id_v1";
+
+    const gate = document.getElementById("gate");
+    const aboutContent = document.getElementById("aboutContent");
+
+    const gatePrompt = document.getElementById("gatePrompt");
+    const gateHint = document.getElementById("gateHint");
+    const gateError = document.getElementById("gateError");
+
+    const gateTextWrap = document.getElementById("gateTextWrap");
+    const gateInput = document.getElementById("gateInput");
+    const gateBtn = document.getElementById("gateBtn");
+
+    const gateMcqWrap = document.getElementById("gateMcqWrap");
+    const mcqOptions = document.getElementById("mcqOptions");
+    const mcqBtn = document.getElementById("mcqBtn");
+
+    function normalize(s) {
+      return (s || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[’'"]/g, "")      // quotes
+        .replace(/\s+/g, " ");      // collapse spaces
+    }
+
+    function normalizeStep1(s) {
+      // allow: camel-lion-child, camel lion child, camel → lion → child, etc.
+      return normalize(s)
+        .replace(/[→>—–-]/g, " ")   // arrows/dashes to spaces
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function showUnlocked() {
+      gate.hidden = true;
+      aboutContent.hidden = false;
+    }
+
+    function setError(msg) {
+      gateError.textContent = msg || "";
+    }
+
+    function setHint(msg) {
+      gateHint.textContent = msg || "";
+    }
+
+    function getStep() {
+      const v = parseInt(sessionStorage.getItem(KEY_STEP) || "1", 10);
+      return Number.isFinite(v) ? v : 1;
+    }
+
+    function setStep(n) {
+      sessionStorage.setItem(KEY_STEP, String(n));
+    }
+
+    // ---- Question pools ----
+
+    // Step 2: random text question (3 variants)
+    const Q2 = [
+      {
+        id: "q2a",
+        prompt: "Zarathustra speaks of the “three metamorphoses” — name them in order.",
+        hint: "Use a simple chain like: camel-lion-child",
+        check: (ans) => normalizeStep1(ans) === "camel lion child"
+      },
+      {
+        id: "q2b",
+        prompt: "Complete the phrase: “God is …” (one word).",
+        hint: "Single word, famous line.",
+        check: (ans) => normalize(ans) === "dead"
+      },
+      {
+        id: "q2c",
+        prompt: "One-word concept: the idea of recurring life “again and again”.",
+        hint: "Two words also accepted.",
+        check: (ans) => {
+          const a = normalize(ans);
+          return a === "eternal return" || a === "eternal recurrence" || a === "return" || a === "recurrence";
+        }
+      }
+    ];
+
+    // Step 3: random MCQ (3 variants)
+    const Q3 = [
+      {
+        id: "q3a",
+        prompt: "Which concept names Nietzsche’s “higher type” (often misunderstood as a comic-book hero)?",
+        options: ["A) Ressentiment", "B) Übermensch", "C) Amor fati", "D) Apollonian", "E) Dionysian"],
+        correctIndex: 1 // B
+      },
+      {
+        id: "q3b",
+        prompt: "Which phrase best matches the doctrine of living your life as if it would repeat endlessly?",
+        options: ["A) Eternal return", "B) Will to power", "C) Categorical imperative", "D) Tabula rasa", "E) Natural selection"],
+        correctIndex: 0 // A
+      },
+      {
+        id: "q3c",
+        prompt: "Which term means “love of fate” (an active yes to life)?",
+        options: ["A) Nihilism", "B) Amor fati", "C) Übermensch", "D) Eternal return", "E) Genealogy"],
+        correctIndex: 1 // B
+      }
+    ];
+
+    // Step 1 is fixed by your spec:
+    function renderStep1() {
+      setError("");
+      setHint("Format: camel-lion-child");
+      gatePrompt.textContent = "Gate I — Three metamorphoses (order matters).";
+      gateInput.value = "";
+      gateInput.placeholder = "camel-lion-child";
+      gateTextWrap.hidden = false;
+      gateMcqWrap.hidden = true;
+      gateBtn.textContent = "Continue";
+      gateInput.focus();
+    }
+
+    function ensureRandomIds() {
+      // persist random selection within the session so it doesn't change on refresh
+      if (!sessionStorage.getItem(KEY_Q2_ID)) {
+        const pick2 = Q2[Math.floor(Math.random() * Q2.length)].id;
+        sessionStorage.setItem(KEY_Q2_ID, pick2);
+      }
+      if (!sessionStorage.getItem(KEY_Q3_ID)) {
+        const pick3 = Q3[Math.floor(Math.random() * Q3.length)].id;
+        sessionStorage.setItem(KEY_Q3_ID, pick3);
+      }
+    }
+
+    function getQ2() {
+      const id = sessionStorage.getItem(KEY_Q2_ID);
+      return Q2.find(x => x.id === id) || Q2[0];
+    }
+
+    function getQ3() {
+      const id = sessionStorage.getItem(KEY_Q3_ID);
+      return Q3.find(x => x.id === id) || Q3[0];
+    }
+
+    function renderStep2() {
+      ensureRandomIds();
+      const q = getQ2();
+      setError("");
+      setHint(q.hint || "");
+      gatePrompt.textContent = "Gate II — " + q.prompt;
+      gateInput.value = "";
+      gateInput.placeholder = "Answer…";
+      gateTextWrap.hidden = false;
+      gateMcqWrap.hidden = true;
+      gateBtn.textContent = "Continue";
+      gateInput.focus();
+    }
+
+    function renderStep3() {
+      ensureRandomIds();
+      const q = getQ3();
+      setError("");
+      setHint("Choose one.");
+      gatePrompt.textContent = "Gate III — " + q.prompt;
+
+      gateTextWrap.hidden = true;
+      gateMcqWrap.hidden = false;
+
+      // Render options (radio)
+      mcqOptions.innerHTML = "";
+      q.options.forEach((label, idx) => {
+        const id = "mcq_" + q.id + "_" + idx;
+        const wrapper = document.createElement("label");
+        wrapper.className = "mcq-option";
+        wrapper.setAttribute("for", id);
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "mcq";
+        radio.id = id;
+        radio.value = String(idx);
+
+        const span = document.createElement("span");
+        span.textContent = label;
+
+        wrapper.appendChild(radio);
+        wrapper.appendChild(span);
+        mcqOptions.appendChild(wrapper);
+      });
+    }
+
+    function checkStep1(ans) {
+      return normalizeStep1(ans) === "camel lion child";
+    }
+
+    function checkStep2(ans) {
+      const q = getQ2();
+      return q.check(ans);
+    }
+
+    function checkStep3(selectedIndex) {
+      const q = getQ3();
+      return selectedIndex === q.correctIndex;
+    }
+
+    function renderByStep(step) {
+      if (sessionStorage.getItem(KEY_UNLOCKED) === "1") {
+        showUnlocked();
+        return;
+      }
+      gate.hidden = false;
+      aboutContent.hidden = true;
+
+      if (step === 1) renderStep1();
+      else if (step === 2) renderStep2();
+      else renderStep3();
+    }
+
+    // ---- Events ----
+    gateBtn.addEventListener("click", () => {
+      const step = getStep();
+      const ans = gateInput.value || "";
+
+      if (step === 1) {
+        if (checkStep1(ans)) {
+          setStep(2);
+          renderByStep(2);
+        } else {
+          setError("No.");
+        }
+      } else if (step === 2) {
+        if (checkStep2(ans)) {
+          setStep(3);
+          renderByStep(3);
+        } else {
+          setError("Not quite.");
+        }
+      }
+    });
+
+    gateInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        gateBtn.click();
+      }
+    });
+
+    mcqBtn.addEventListener("click", () => {
+      const selected = document.querySelector('input[name="mcq"]:checked');
+      if (!selected) {
+        setError("Pick one.");
+        return;
+      }
+      const idx = parseInt(selected.value, 10);
+      if (checkStep3(idx)) {
+        sessionStorage.setItem(KEY_UNLOCKED, "1");
+        showUnlocked();
+      } else {
+        setError("Wrong key.");
+      }
+    });
+
+    // ---- Init ----
+    if (sessionStorage.getItem(KEY_UNLOCKED) === "1") {
+      showUnlocked();
+    } else {
+      // Start at step 1 by default
+      const step = getStep();
+      // if step >=2 but random ids missing, ensure they exist
+      if (step >= 2) ensureRandomIds();
+      renderByStep(step);
+    }
+  })();
+</script>
 
 </body>
 </html>
