@@ -1,347 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About · PIRGL</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Minimal gate styling (scoped by .gate-wrap) */
+    .gate-wrap{
+      margin-top: 28px;
+      width: min(620px, 92vw);
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    .gate-card{
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 14px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .gate-title{
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      opacity: 0.85;
+      margin-bottom: 10px;
+    }
+
+    .gate-prompt{
+      font-size: 14px;
+      line-height: 1.55;
+      opacity: 0.85;
+      margin-bottom: 14px;
+    }
+
+    .gate-row{
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .gate-input{
+      flex: 1;
+      font-family: inherit;
+      font-size: 14px;
+      padding: 12px 12px;
+      border: 1px solid rgba(0,0,0,0.14);
+      border-radius: 12px;
+      outline: none;
+      background: #fff;
+      color: #000;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .gate-input:focus{
+      border-color: rgba(0,0,0,0.45);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+    }
+
+    .gate-btn{
+      font-family: inherit;
+      font-size: 13px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: none;
+      background: #000;
+      color: #fff;
+      cursor: pointer;
+      transition: opacity 180ms ease, transform 180ms ease;
+      white-space: nowrap;
+    }
+
+    .gate-btn:hover{ opacity: 0.86; transform: translateY(-1px); }
+    .gate-btn:active{ transform: translateY(0); }
+
+    .gate-help{
+      margin-top: 10px;
+      font-size: 12px;
+      opacity: 0.65;
+    }
+
+    .gate-error{
+      margin-top: 10px;
+      font-size: 12px;
+      color: #000;
+      opacity: 0.75;
+    }
+
+    .choices{
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .choice{
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 12px;
+      padding: 12px 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 140ms ease, opacity 140ms ease, border-color 140ms ease;
+    }
+
+    .choice:hover{
+      transform: translateY(-1px);
+      border-color: rgba(0,0,0,0.22);
+    }
+
+    .choice-key{
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      opacity: 0.8;
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+
+    .choice-text{
+      font-size: 14px;
+      line-height: 1.45;
+      opacity: 0.85;
+    }
+
+    /* mobile */
+    @media (max-width: 600px){
+      .gate-card{ padding: 16px; }
+      .gate-row{ flex-direction: column; align-items: stretch; }
+      .gate-btn{ width: 100%; }
+    }
+  </style>
 </head>
+
 <body>
+  <header class="header">
+    <a href="index.html" class="brand">PIRGL</a>
+    <nav class="nav">
+      <a href="about.html" class="active">about</a>
+      <a href="projects.html">projects</a>
+      <a href="contact.html">contact</a>
+    </nav>
+  </header>
 
-<header class="header">
-  <a href="index.html" class="brand">PIRGL</a>
-  <nav class="nav">
-    <a href="about.html" class="active">about</a>
-    <a href="projects.html">projects</a>
-    <a href="contact.html">contact</a>
-  </nav>
-</header>
-
-<main>
-  <div>
-
-    <!-- Gate -->
-    <section id="gate" class="gate">
+  <main>
+    <div>
       <h1>About</h1>
+      <p><em>Not everything here is meant for everyone.</em></p>
 
-      <p class="gate-note"><em>Not everything here is meant for everyone.</em></p>
-
-      <div id="gateCard" class="gate-card">
-        <p id="gatePrompt" class="gate-prompt"></p>
-
-        <!-- Step 1 + 2: text answer -->
-        <div id="gateTextWrap" class="gate-row">
-          <input id="gateInput" class="gate-input" type="text" autocomplete="off" spellcheck="false" placeholder="">
-          <button id="gateBtn" class="gate-btn" type="button">Continue</button>
-        </div>
-
-        <!-- Step 3: MCQ -->
-        <div id="gateMcqWrap" class="gate-mcq" hidden>
-          <div id="mcqOptions" class="mcq-options"></div>
-          <button id="mcqBtn" class="gate-btn" type="button">Unlock</button>
-        </div>
-
-        <p id="gateHint" class="gate-hint"></p>
-        <p id="gateError" class="gate-error" aria-live="polite"></p>
+      <!-- Gate container -->
+      <div class="gate-wrap">
+        <div id="gateCard" class="gate-card" aria-live="polite"></div>
       </div>
-    </section>
 
-    <!-- About content (hidden until unlocked) -->
-    <section id="aboutContent" class="about-content" hidden>
-      <h1>About</h1>
+      <!-- Hidden content -->
+      <section id="aboutContent" style="display:none; margin-top: 30px;">
+        <p>
+          This is where your About content goes.<br>
+          You can later replace this with résumé text, a PDF embed, whatever.
+        </p>
 
-      <p>
-        <span class="email-text">Résumé coming soon.</span>
-      </p>
+        <div class="resume-placeholder" style="margin-top: 18px;">
+          <p>Résumé coming soon.</p>
+        </div>
+      </section>
 
-      <!-- Placeholder block: when you're ready, swap this for iframe resume.pdf -->
-      <div class="resume-placeholder">
-        <p>Résumé coming soon.</p>
-      </div>
-    </section>
+    </div>
+  </main>
 
-  </div>
-</main>
+  <footer>SEBASTIAN PIRGL</footer>
 
-<footer>
-  SEBASTIAN PIRGL
-</footer>
+  <script>
+    /**
+     * Session-only gate:
+     * - We store progress in sessionStorage so refresh keeps the state
+     * - Closing the tab resets it
+     */
+    const SESSION_KEY = "pirgl_about_gate_step";
 
-<script>
-  (function () {
-    // Session-only unlock (no localStorage)
-    const KEY_UNLOCKED = "pirgl_about_unlocked_v1";
-    const KEY_STEP = "pirgl_about_step_v1";
-    const KEY_Q2_ID = "pirgl_about_q2_id_v1";
-    const KEY_Q3_ID = "pirgl_about_q3_id_v1";
+    // Gate I (fixed)
+    const GATE1_ANSWER = "camel-lion-child";
 
-    const gate = document.getElementById("gate");
-    const aboutContent = document.getElementById("aboutContent");
-
-    const gatePrompt = document.getElementById("gatePrompt");
-    const gateHint = document.getElementById("gateHint");
-    const gateError = document.getElementById("gateError");
-
-    const gateTextWrap = document.getElementById("gateTextWrap");
-    const gateInput = document.getElementById("gateInput");
-    const gateBtn = document.getElementById("gateBtn");
-
-    const gateMcqWrap = document.getElementById("gateMcqWrap");
-    const mcqOptions = document.getElementById("mcqOptions");
-    const mcqBtn = document.getElementById("mcqBtn");
-
-    function normalize(s) {
-      return (s || "")
-        .trim()
-        .toLowerCase()
-        .replace(/[’'"]/g, "")      // quotes
-        .replace(/\s+/g, " ");      // collapse spaces
-    }
-
-    function normalizeStep1(s) {
-      // allow: camel-lion-child, camel lion child, camel → lion → child, etc.
-      return normalize(s)
-        .replace(/[→>—–-]/g, " ")   // arrows/dashes to spaces
-        .replace(/\s+/g, " ")
-        .trim();
-    }
-
-    function showUnlocked() {
-      gate.hidden = true;
-      aboutContent.hidden = false;
-    }
-
-    function setError(msg) {
-      gateError.textContent = msg || "";
-    }
-
-    function setHint(msg) {
-      gateHint.textContent = msg || "";
-    }
-
-    function getStep() {
-      const v = parseInt(sessionStorage.getItem(KEY_STEP) || "1", 10);
-      return Number.isFinite(v) ? v : 1;
-    }
-
-    function setStep(n) {
-      sessionStorage.setItem(KEY_STEP, String(n));
-    }
-
-    // ---- Question pools ----
-
-    // Step 2: random text question (3 variants)
-    const Q2 = [
+    // Gate II (random open question)
+    const gate2Pool = [
       {
-        id: "q2a",
-        prompt: "Zarathustra speaks of the “three metamorphoses” — name them in order.",
-        hint: "Use a simple chain like: camel-lion-child",
-        check: (ans) => normalizeStep1(ans) === "camel lion child"
+        prompt: "Gate II — In Zarathustra, what is the name of the spirit that says “No” (the great negation) before a new “Yes” becomes possible?",
+        answer: "lion",
+        help: "One word. Lowercase."
       },
       {
-        id: "q2b",
-        prompt: "Complete the phrase: “God is …” (one word).",
-        hint: "Single word, famous line.",
-        check: (ans) => normalize(ans) === "dead"
+        prompt: "Gate II — In Zarathustra’s prologue, what does Zarathustra share with people before he speaks of the Übermensch?",
+        answer: "wisdom",
+        help: "One word. Lowercase."
       },
       {
-        id: "q2c",
-        prompt: "One-word concept: the idea of recurring life “again and again”.",
-        hint: "Two words also accepted.",
-        check: (ans) => {
-          const a = normalize(ans);
-          return a === "eternal return" || a === "eternal recurrence" || a === "return" || a === "recurrence";
+        prompt: "Gate II — Nietzsche’s Zarathustra begins with a descent after how many years of solitude?",
+        answer: "10",
+        help: "Just a number."
+      }
+    ];
+
+    // Gate III (random multiple-choice)
+    const gate3Pool = [
+      {
+        prompt: "Gate III — Which concept in Nietzsche is often described as the toughest test of affirmation: living your life again and again, identically?",
+        correct: "B",
+        choices: {
+          A: "Übermensch",
+          B: "Eternal return",
+          C: "Ressentiment",
+          D: "Last man"
+        }
+      },
+      {
+        prompt: "Gate III — In Zarathustra, what name is given to the figure that embodies overcoming, self-creation, and a new table of values?",
+        correct: "A",
+        choices: {
+          A: "Übermensch",
+          B: "Eternal return",
+          C: "Ascetic ideal",
+          D: "Pity"
+        }
+      },
+      {
+        prompt: "Gate III — Which phrase best matches Nietzsche’s core demand of radical affirmation (amor fati) when pushed to the extreme?",
+        correct: "C",
+        choices: {
+          A: "Know thyself",
+          B: "Deny the world",
+          C: "Yes to everything",
+          D: "Seek comfort"
         }
       }
     ];
 
-    // Step 3: random MCQ (3 variants)
-    const Q3 = [
-      {
-        id: "q3a",
-        prompt: "Which concept names Nietzsche’s “higher type” (often misunderstood as a comic-book hero)?",
-        options: ["A) Ressentiment", "B) Übermensch", "C) Amor fati", "D) Apollonian", "E) Dionysian"],
-        correctIndex: 1 // B
-      },
-      {
-        id: "q3b",
-        prompt: "Which phrase best matches the doctrine of living your life as if it would repeat endlessly?",
-        options: ["A) Eternal return", "B) Will to power", "C) Categorical imperative", "D) Tabula rasa", "E) Natural selection"],
-        correctIndex: 0 // A
-      },
-      {
-        id: "q3c",
-        prompt: "Which term means “love of fate” (an active yes to life)?",
-        options: ["A) Nihilism", "B) Amor fati", "C) Übermensch", "D) Eternal return", "E) Genealogy"],
-        correctIndex: 1 // B
+    // --- utilities ---
+    const norm = (s) => (s || "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .replace(/[–—]/g, "-");
+
+    function setStep(step){
+      sessionStorage.setItem(SESSION_KEY, String(step));
+    }
+
+    function getStep(){
+      const v = sessionStorage.getItem(SESSION_KEY);
+      const n = Number(v);
+      return Number.isFinite(n) && n >= 1 && n <= 4 ? n : 1; // 4 means unlocked
+    }
+
+    function pickOnce(key, pool){
+      // session-stable random: store chosen index in sessionStorage
+      const storeKey = "pirgl_about_" + key + "_idx";
+      let idx = sessionStorage.getItem(storeKey);
+      if (idx === null){
+        idx = String(Math.floor(Math.random() * pool.length));
+        sessionStorage.setItem(storeKey, idx);
       }
-    ];
-
-    // Step 1 is fixed by your spec:
-    function renderStep1() {
-      setError("");
-      setHint("Order matters. Format: camel-child-lion");
-      gatePrompt.textContent = "Gate I — Three metamorphoses (order matters).";
-      gateInput.value = "";
-      gateInput.placeholder = "Answer…";
-      gateTextWrap.hidden = false;
-      gateMcqWrap.hidden = true;
-      gateBtn.textContent = "Continue";
-      gateInput.focus();
+      const i = Math.max(0, Math.min(pool.length - 1, Number(idx)));
+      return pool[i];
     }
 
-    function ensureRandomIds() {
-      // persist random selection within the session so it doesn't change on refresh
-      if (!sessionStorage.getItem(KEY_Q2_ID)) {
-        const pick2 = Q2[Math.floor(Math.random() * Q2.length)].id;
-        sessionStorage.setItem(KEY_Q2_ID, pick2);
+    // --- rendering ---
+    const gateCard = document.getElementById("gateCard");
+    const aboutContent = document.getElementById("aboutContent");
+
+    function render(){
+      const step = getStep();
+
+      // unlocked
+      if (step === 4){
+        gateCard.style.display = "none";
+        aboutContent.style.display = "block";
+        return;
       }
-      if (!sessionStorage.getItem(KEY_Q3_ID)) {
-        const pick3 = Q3[Math.floor(Math.random() * Q3.length)].id;
-        sessionStorage.setItem(KEY_Q3_ID, pick3);
-      }
+
+      gateCard.style.display = "block";
+      aboutContent.style.display = "none";
+
+      if (step === 1) renderGate1();
+      if (step === 2) renderGate2();
+      if (step === 3) renderGate3();
     }
 
-    function getQ2() {
-      const id = sessionStorage.getItem(KEY_Q2_ID);
-      return Q2.find(x => x.id === id) || Q2[0];
-    }
+    function renderGate1(){
+      gateCard.innerHTML = `
+        <div class="gate-title">Gate I</div>
+        <div class="gate-prompt">Three metamorphoses (order matters). Use a simple chain like: <strong>camel-lion-child</strong>.</div>
 
-    function getQ3() {
-      const id = sessionStorage.getItem(KEY_Q3_ID);
-      return Q3.find(x => x.id === id) || Q3[0];
-    }
+        <div class="gate-row">
+          <input class="gate-input" id="gateInput" type="text" autocomplete="off" placeholder="Answer…" />
+          <button class="gate-btn" id="gateBtn">Continue</button>
+        </div>
 
-    function renderStep2() {
-      ensureRandomIds();
-      const q = getQ2();
-      setError("");
-      setHint(q.hint || "");
-      gatePrompt.textContent = "Gate II — " + q.prompt;
-      gateInput.value = "";
-      gateInput.placeholder = "Answer…";
-      gateTextWrap.hidden = false;
-      gateMcqWrap.hidden = true;
-      gateBtn.textContent = "Continue";
-      gateInput.focus();
-    }
+        <div class="gate-help">Hint: Zarathustra’s opening transformation sequence.</div>
+        <div class="gate-error" id="gateErr" style="display:none;"></div>
+      `;
 
-    function renderStep3() {
-      ensureRandomIds();
-      const q = getQ3();
-      setError("");
-      setHint("Choose one.");
-      gatePrompt.textContent = "Gate III — " + q.prompt;
+      const input = document.getElementById("gateInput");
+      const btn = document.getElementById("gateBtn");
+      const err = document.getElementById("gateErr");
 
-      gateTextWrap.hidden = true;
-      gateMcqWrap.hidden = false;
+      const submit = () => {
+        const val = norm(input.value).replace(/_/g, "-");
+        if (val === GATE1_ANSWER){
+          err.style.display = "none";
+          setStep(2);
+          render();
+        } else {
+          err.textContent = "Not quite. Order matters.";
+          err.style.display = "block";
+        }
+      };
 
-      // Render options (radio)
-      mcqOptions.innerHTML = "";
-      q.options.forEach((label, idx) => {
-        const id = "mcq_" + q.id + "_" + idx;
-        const wrapper = document.createElement("label");
-        wrapper.className = "mcq-option";
-        wrapper.setAttribute("for", id);
-
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "mcq";
-        radio.id = id;
-        radio.value = String(idx);
-
-        const span = document.createElement("span");
-        span.textContent = label;
-
-        wrapper.appendChild(radio);
-        wrapper.appendChild(span);
-        mcqOptions.appendChild(wrapper);
+      btn.addEventListener("click", submit);
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") submit();
       });
     }
 
-    function checkStep1(ans) {
-      return normalizeStep1(ans) === "camel lion child";
-    }
+    function renderGate2(){
+      const q = pickOnce("gate2", gate2Pool);
 
-    function checkStep2(ans) {
-      const q = getQ2();
-      return q.check(ans);
-    }
+      gateCard.innerHTML = `
+        <div class="gate-title">Gate II</div>
+        <div class="gate-prompt">${q.prompt}</div>
 
-    function checkStep3(selectedIndex) {
-      const q = getQ3();
-      return selectedIndex === q.correctIndex;
-    }
+        <div class="gate-row">
+          <input class="gate-input" id="gateInput" type="text" autocomplete="off" placeholder="Answer…" />
+          <button class="gate-btn" id="gateBtn">Continue</button>
+        </div>
 
-    function renderByStep(step) {
-      if (sessionStorage.getItem(KEY_UNLOCKED) === "1") {
-        showUnlocked();
-        return;
-      }
-      gate.hidden = false;
-      aboutContent.hidden = true;
+        <div class="gate-help">${q.help || ""}</div>
+        <div class="gate-error" id="gateErr" style="display:none;"></div>
+      `;
 
-      if (step === 1) renderStep1();
-      else if (step === 2) renderStep2();
-      else renderStep3();
-    }
+      const input = document.getElementById("gateInput");
+      const btn = document.getElementById("gateBtn");
+      const err = document.getElementById("gateErr");
 
-    // ---- Events ----
-    gateBtn.addEventListener("click", () => {
-      const step = getStep();
-      const ans = gateInput.value || "";
-
-      if (step === 1) {
-        if (checkStep1(ans)) {
-          setStep(2);
-          renderByStep(2);
-        } else {
-          setError("No.");
-        }
-      } else if (step === 2) {
-        if (checkStep2(ans)) {
+      const submit = () => {
+        const val = norm(input.value);
+        if (val === norm(q.answer)){
+          err.style.display = "none";
           setStep(3);
-          renderByStep(3);
+          render();
         } else {
-          setError("Not quite.");
+          err.textContent = "No. Try again.";
+          err.style.display = "block";
         }
-      }
-    });
+      };
 
-    gateInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        gateBtn.click();
-      }
-    });
-
-    mcqBtn.addEventListener("click", () => {
-      const selected = document.querySelector('input[name="mcq"]:checked');
-      if (!selected) {
-        setError("Pick one.");
-        return;
-      }
-      const idx = parseInt(selected.value, 10);
-      if (checkStep3(idx)) {
-        sessionStorage.setItem(KEY_UNLOCKED, "1");
-        showUnlocked();
-      } else {
-        setError("Wrong key.");
-      }
-    });
-
-    // ---- Init ----
-    if (sessionStorage.getItem(KEY_UNLOCKED) === "1") {
-      showUnlocked();
-    } else {
-      // Start at step 1 by default
-      const step = getStep();
-      // if step >=2 but random ids missing, ensure they exist
-      if (step >= 2) ensureRandomIds();
-      renderByStep(step);
+      btn.addEventListener("click", submit);
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") submit();
+      });
     }
-  })();
-</script>
 
+    function renderGate3(){
+      const q = pickOnce("gate3", gate3Pool);
+
+      const choiceHtml = Object.entries(q.choices).map(([key, text]) => {
+        return `
+          <div class="choice" data-key="${key}">
+            <div class="choice-key">${key}</div>
+            <div class="choice-text">${text}</div>
+          </div>
+        `;
+      }).join("");
+
+      gateCard.innerHTML = `
+        <div class="gate-title">Gate III</div>
+        <div class="gate-prompt">${q.prompt}</div>
+
+        <div class="choices" id="choices">
+          ${choiceHtml}
+        </div>
+
+        <div class="gate-error" id="gateErr" style="display:none;"></div>
+      `;
+
+      const err = document.getElementById("gateErr");
+      const choices = document.getElementById("choices");
+
+      choices.addEventListener("click", (e) => {
+        const el = e.target.closest(".choice");
+        if (!el) return;
+
+        const picked = el.getAttribute("data-key");
+        if (picked === q.correct){
+          err.style.display = "none";
+          setStep(4); // unlocked
+          render();
+        } else {
+          err.textContent = "Incorrect.";
+          err.style.display = "block";
+        }
+      });
+    }
+
+    // init
+    render();
+  </script>
 </body>
 </html>
