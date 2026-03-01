@@ -221,8 +221,20 @@ footer {
   position: absolute;
   bottom: calc(24px + env(safe-area-inset-bottom));
   right: 32px;
-  font-size: 12px;
-  letter-spacing: 0.1em;
+  text-align: right;
+}
+
+.footer-name {
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+}
+
+.footer-sub {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
 }
 
 /* --- REDUCED MOTION --- */
