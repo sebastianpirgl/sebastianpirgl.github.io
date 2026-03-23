@@ -219,8 +219,9 @@ footer {
 }
 
 .resume-wrap {
-  width: min(1360px, calc(100vw - 64px));
-  margin: 0 auto;
+  width: min(980px, 100%);
+  margin-left: 0;
+  margin-right: auto;
 }
 
 .resume-intro {
