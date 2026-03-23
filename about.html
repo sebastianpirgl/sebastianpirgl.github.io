@@ -1,109 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Résumé · PIRGL</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header class="header">
+    <a href="index.html" class="brand">PIRGL</a>
+    <nav class="nav">
+      <a href="about.html" class="active">résumé</a>
+      <a href="projects.html">projects</a>
+      <a href="contact.html">contact</a>
+    </nav>
+  </header>
 
-<header class="header">
-  <a href="index.html" class="brand">PIRGL</a>
-  <nav class="nav">
-    <a href="about.html" class="active">résumé</a>
-    <a href="projects.html">projects</a>
-    <a href="contact.html">contact</a>
-  </nav>
-</header>
+  <main class="resume-page">
+    <div class="resume-wrap">
 
-<main>
-  <div>
-    <h1>Sebastian F. Pirgl</h1>
+      <section class="resume-intro">
+        <h1>Résumé</h1>
+        <p>
+          Sebastian F. Pirgl<br>
+          Prague, Czechia<br>
+          <a href="mailto:pirglsebastian@gmail.com">pirglsebastian@gmail.com</a><br>
+          <a href="https://www.linkedin.com/in/sebastianpirgl" target="_blank" rel="noopener noreferrer">LinkedIn</a><br>
+          <a href="PIRGL_CV.pdf" target="_blank" rel="noopener noreferrer">CV (PDF)</a>
+        </p>
+      </section>
 
-    <p>
-      Economics student focused on financial markets, data analysis, and quantitative methods.<br>
-      Interested in the intersection of finance, policy, and European economic development.
-    </p>
+      <section class="cv-row">
+        <div class="cv-label">Education</div>
+        <div class="cv-content">
 
-    <!-- EDUCATION -->
-    <section class="resume-section">
-      <h2>Education</h2>
+          <div class="cv-item">
+            <div class="cv-title">Charles University – Institute of Economic Studies</div>
+            <div class="cv-meta">Master’s Programme in Economics and Finance, Financial Markets and Data Analysis (since 2025)</div>
+            <p>Short description or focus can go here later.</p>
+          </div>
 
-      <div class="resume-item">
-        <p><strong>Charles University — Institute of Economic Studies</strong></p>
-        <p>Master’s Programme in Economics and Finance — since 2025</p>
-        <p>Bachelor’s Programme in Economics and Finance — 2021–2025</p>
-      </div>
+          <div class="cv-item">
+            <div class="cv-title">Charles University – Institute of Economic Studies</div>
+            <div class="cv-meta">Bachelor’s Programme in Economics and Finance (2021–2025)</div>
+            <p>Short description or relevant coursework can go here later.</p>
+          </div>
 
-      <div class="resume-item">
-        <p><strong>Toulouse School of Economics</strong></p>
-        <p>Exchange Programme — 2024–2025</p>
-      </div>
+          <div class="cv-item">
+            <div class="cv-title">Toulouse School of Economics</div>
+            <div class="cv-meta">Exchange Programme, Economics (2024–2025)</div>
+            <p>You can later add a short note here.</p>
+          </div>
 
-      <div class="resume-item">
-        <p><strong>Ludwig Maximilian University of Munich</strong></p>
-        <p>Exchange Programme — 2024</p>
-      </div>
-    </section>
+          <div class="cv-item">
+            <div class="cv-title">Ludwig Maximilian University of Munich</div>
+            <div class="cv-meta">Exchange Programme, Economics (2024)</div>
+            <p>You can later add a short note here.</p>
+          </div>
 
-    <!-- EXPERIENCE -->
-    <section class="resume-section">
-      <h2>Experience</h2>
+        </div>
+      </section>
 
-      <div class="resume-item">
-        <p><strong>Academic Assistant — Austrian Academy of Sciences</strong></p>
-        <p>since November 2025</p>
-      </div>
+      <section class="cv-row">
+        <div class="cv-label">Selected Experience</div>
+        <div class="cv-content">
 
-      <div class="resume-item">
-        <p><strong>Atos SE</strong></p>
-        <p>IT Service Desk Intern — since 2023</p>
-      </div>
+          <div class="cv-item">
+            <div class="cv-title">Academic Assistant – Austrian Academy of Sciences / University of Graz</div>
+            <div class="cv-meta">since November 2025</div>
+            <p>Description to be added.</p>
+          </div>
 
-      <div class="resume-item">
-        <p><strong>IKEM</strong></p>
-        <p>Administrative Assistant — 2018–2022</p>
-      </div>
-    </section>
+          <div class="cv-item">
+            <div class="cv-title">Data Analytics for Sustainable Finance</div>
+            <div class="cv-meta">Blended Intensive Programme, University of Udine + partners (2025)</div>
+            <p>Description to be added.</p>
+          </div>
 
-    <!-- SKILLS -->
-    <section class="resume-section">
-      <h2>Skills</h2>
+          <div class="cv-item">
+            <div class="cv-title">Additional academic / research activity</div>
+            <div class="cv-meta">Optional entry</div>
+            <p>You can add another selective item here later.</p>
+          </div>
 
-      <p>
-        R, Python, Julia<br>
-        Time series, panel data, causal inference<br>
-        Bloomberg Terminal (basic)
-      </p>
-    </section>
+        </div>
+      </section>
 
-    <!-- LANGUAGES -->
-    <section class="resume-section">
-      <h2>Languages</h2>
+      <section class="cv-row">
+        <div class="cv-label">Skills</div>
+        <div class="cv-content">
 
-      <p>
-        Czech (native)<br>
-        English (advanced)<br>
-        German (intermediate)<br>
-        French (basic)
-      </p>
-    </section>
+          <div class="cv-item">
+            <div class="cv-title">Programming & Data Analysis</div>
+            <p>R, Python, Julia, Jupyter Notebooks, tidyverse, pandas, scikit-learn, plm</p>
+          </div>
 
-    <!-- PDF -->
-    <div class="resume-download">
-      <a href="PIRGL_CV.pdf" target="_blank">
-        Download full CV (PDF)
-      </a>
+          <div class="cv-item">
+            <div class="cv-title">Quantitative Methods</div>
+            <p>Time series analysis, panel data methods, causal inference, volatility modelling and forecasting</p>
+          </div>
+
+          <div class="cv-item">
+            <div class="cv-title">Other</div>
+            <p>Bloomberg Terminal (basic)</p>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="cv-row">
+        <div class="cv-label">Languages</div>
+        <div class="cv-content">
+
+          <div class="cv-item">
+            <p>Czech (native), English (advanced), German (intermediate), French (elementary)</p>
+          </div>
+
+        </div>
+      </section>
+
     </div>
+  </main>
 
-  </div>
-</main>
-
-<footer>
-  <div class="footer-name">SEBASTIAN PIRGL</div>
-  <div class="footer-sub">Visca Barça i visca Catalunya.</div>
-</footer>
-
+  <footer>
+    <div class="footer-name">SEBASTIAN PIRGL</div>
+    <div class="footer-sub">Visca Barça i visca Catalunya.</div>
+  </footer>
 </body>
 </html>
