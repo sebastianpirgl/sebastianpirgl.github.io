@@ -214,36 +214,31 @@ footer {
 
 .resume-page {
   display: block;
-  padding: 112px 32px 120px;
+  padding: 120px 32px 120px;
   text-align: left;
 }
 
 .resume-wrap {
-  width: min(920px, calc(100vw - 64px));
-  margin-left: 0;
-  margin-right: auto;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: 56px;
 }
 
 .resume-intro {
-  margin-bottom: 54px;
+  width: 100%;
+  max-width: 980px;
+  margin-bottom: 64px;
   padding-top: 18px;
   border-top: 2px solid #111;
 }
 
-.resume-intro h1 {
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 1.04;
-  margin-bottom: 16px;
-  text-align: left;
-}
-
 .resume-intro p {
   margin-top: 0;
-  max-width: 560px;
+  max-width: 760px;
   font-size: 15px;
   line-height: 1.72;
-  opacity: 0.72;
+  opacity: 0.74;
   text-align: left;
 }
 
@@ -255,25 +250,25 @@ footer {
 
 .cv-row {
   display: grid;
-  grid-template-columns: 180px minmax(0, 860px);
-  column-gap: 42px;
-  padding: 22px 0 30px;
+  grid-template-columns: 190px minmax(0, 760px);
+  column-gap: 48px;
+  padding: 26px 0 34px;
 }
 
 .cv-label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.4;
-  opacity: 0.42;
+  opacity: 0.36;
   text-align: left;
 }
 
 .cv-content {
-  max-width: 860px;
+  max-width: 760px;
 }
 
 .cv-item {
-  margin-bottom: 28px;
+  margin-bottom: 34px;
 }
 
 .cv-item:last-child {
@@ -284,25 +279,52 @@ footer {
   font-size: 17px;
   line-height: 1.42;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.56);
+  color: rgba(0, 0, 0, 0.52);
   margin-bottom: 4px;
 }
 
 .cv-meta {
   font-size: 15px;
   line-height: 1.5;
-  margin-bottom: 5px;
+  margin-bottom: 0;
   color: #000;
   opacity: 0.9;
 }
 
 .cv-item p {
-  margin-top: 0;
+  margin-top: 6px;
   margin-bottom: 0;
   font-size: 15px;
   line-height: 1.58;
-  opacity: 0.84;
-  max-width: 860px;
+  opacity: 0.82;
+  max-width: 760px;
+}
+
+@media (max-width: 900px) {
+  .resume-page {
+    padding: 104px 20px 110px;
+  }
+
+  .resume-wrap {
+    max-width: 100%;
+    padding-left: 0;
+  }
+
+  .resume-intro {
+    max-width: 100%;
+    margin-bottom: 40px;
+    padding-top: 14px;
+  }
+
+  .cv-row {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    padding: 18px 0 26px;
+  }
+
+  .cv-label {
+    font-size: 15px;
+  }
 }
 
 /* --- REDUCED MOTION --- */
