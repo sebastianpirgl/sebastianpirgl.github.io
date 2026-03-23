@@ -1,420 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About · PIRGL</title>
-  <link rel="stylesheet" href="style.css" />
-
-  <style>
-    /* Minimal gate styling (scoped by .gate-wrap) */
-    .gate-wrap{
-      margin-top: 28px;
-      width: min(620px, 92vw);
-      margin-left: auto;
-      margin-right: auto;
-      text-align: left;
-    }
-
-    .gate-card{
-      border: 1px solid rgba(0,0,0,0.12);
-      border-radius: 14px;
-      padding: 18px;
-      background: #fff;
-    }
-
-    .gate-title{
-      font-size: 13px;
-      letter-spacing: 0.02em;
-      opacity: 0.85;
-      margin-bottom: 10px;
-    }
-
-    .gate-prompt{
-      font-size: 14px;
-      line-height: 1.55;
-      opacity: 0.85;
-      margin-bottom: 14px;
-    }
-
-    .gate-row{
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .gate-input{
-      flex: 1;
-      font-family: inherit;
-      font-size: 14px;
-      padding: 12px 12px;
-      border: 1px solid rgba(0,0,0,0.14);
-      border-radius: 12px;
-      outline: none;
-      background: #fff;
-      color: #000;
-      transition: border-color 180ms ease, box-shadow 180ms ease;
-    }
-
-    .gate-input:focus{
-      border-color: rgba(0,0,0,0.45);
-      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
-    }
-
-    .gate-btn{
-      font-family: inherit;
-      font-size: 13px;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: none;
-      background: #000;
-      color: #fff;
-      cursor: pointer;
-      transition: opacity 180ms ease, transform 180ms ease;
-      white-space: nowrap;
-    }
-
-    .gate-btn:hover{ opacity: 0.86; transform: translateY(-1px); }
-    .gate-btn:active{ transform: translateY(0); }
-
-    .gate-help{
-      margin-top: 10px;
-      font-size: 12px;
-      opacity: 0.65;
-    }
-
-    .gate-error{
-      margin-top: 10px;
-      font-size: 12px;
-      color: #000;
-      opacity: 0.75;
-    }
-
-    .choices{
-      display: grid;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .choice{
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      border: 1px solid rgba(0,0,0,0.12);
-      border-radius: 12px;
-      padding: 12px 12px;
-      cursor: pointer;
-      user-select: none;
-      transition: transform 140ms ease, opacity 140ms ease, border-color 140ms ease;
-    }
-
-    .choice:hover{
-      transform: translateY(-1px);
-      border-color: rgba(0,0,0,0.22);
-    }
-
-    .choice-key{
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.18);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      opacity: 0.8;
-      flex: 0 0 auto;
-      margin-top: 1px;
-    }
-
-    .choice-text{
-      font-size: 14px;
-      line-height: 1.45;
-      opacity: 0.85;
-    }
-
-    /* mobile */
-    @media (max-width: 600px){
-      .gate-card{ padding: 16px; }
-      .gate-row{ flex-direction: column; align-items: stretch; }
-      .gate-btn{ width: 100%; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Résumé · PIRGL</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header class="header">
-    <a href="index.html" class="brand">PIRGL</a>
-    <nav class="nav">
-      <a href="about.html" class="active">about</a>
-      <a href="projects.html">projects</a>
-      <a href="contact.html">contact</a>
-    </nav>
-  </header>
 
-  <main>
-    <div>
-      <h1>About</h1>
-      <p><em>Not everything here is meant for everyone.</em></p>
+<header class="header">
+  <a href="index.html" class="brand">PIRGL</a>
+  <nav class="nav">
+    <a href="about.html" class="active">résumé</a>
+    <a href="projects.html">projects</a>
+    <a href="contact.html">contact</a>
+  </nav>
+</header>
 
-      <!-- Gate container -->
-      <div class="gate-wrap">
-        <div id="gateCard" class="gate-card" aria-live="polite"></div>
+<main>
+  <div>
+    <h1>Sebastian F. Pirgl</h1>
+
+    <p>
+      Economics student focused on financial markets, data analysis, and quantitative methods.<br>
+      Interested in the intersection of finance, policy, and European economic development.
+    </p>
+
+    <!-- EDUCATION -->
+    <section class="resume-section">
+      <h2>Education</h2>
+
+      <div class="resume-item">
+        <p><strong>Charles University — Institute of Economic Studies</strong></p>
+        <p>Master’s Programme in Economics and Finance — since 2025</p>
+        <p>Bachelor’s Programme in Economics and Finance — 2021–2025</p>
       </div>
 
-      <!-- Hidden content -->
-      <section id="aboutContent" style="display:none; margin-top: 30px;">
-        <p>
-          Coming soon.<br>
-          You can later see this with résumé text, a PDF embed.
-        </p>
+      <div class="resume-item">
+        <p><strong>Toulouse School of Economics</strong></p>
+        <p>Exchange Programme — 2024–2025</p>
+      </div>
 
-        <div class="resume-placeholder" style="margin-top: 18px;">
-          <p>Résumé coming soon.</p>
-        </div>
-      </section>
+      <div class="resume-item">
+        <p><strong>Ludwig Maximilian University of Munich</strong></p>
+        <p>Exchange Programme — 2024</p>
+      </div>
+    </section>
 
+    <!-- EXPERIENCE -->
+    <section class="resume-section">
+      <h2>Experience</h2>
+
+      <div class="resume-item">
+        <p><strong>Academic Assistant — Austrian Academy of Sciences</strong></p>
+        <p>since November 2025</p>
+      </div>
+
+      <div class="resume-item">
+        <p><strong>Atos SE</strong></p>
+        <p>IT Service Desk Intern — since 2023</p>
+      </div>
+
+      <div class="resume-item">
+        <p><strong>IKEM</strong></p>
+        <p>Administrative Assistant — 2018–2022</p>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="resume-section">
+      <h2>Skills</h2>
+
+      <p>
+        R, Python, Julia<br>
+        Time series, panel data, causal inference<br>
+        Bloomberg Terminal (basic)
+      </p>
+    </section>
+
+    <!-- LANGUAGES -->
+    <section class="resume-section">
+      <h2>Languages</h2>
+
+      <p>
+        Czech (native)<br>
+        English (advanced)<br>
+        German (intermediate)<br>
+        French (basic)
+      </p>
+    </section>
+
+    <!-- PDF -->
+    <div class="resume-download">
+      <a href="Sebastian_Pirgl_CV_QRA_SF.pdf" target="_blank">
+        Download full CV (PDF)
+      </a>
     </div>
-  </main>
 
-  <footer>
-    <div class="footer-name">SEBASTIAN PIRGL</div>
-    <div class="footer-sub">Visca Barça i visca Catalunya.</div>
-  </footer>
+  </div>
+</main>
 
-  <script>
-    /**
-     * Session-only gate:
-     * - We store progress in sessionStorage so refresh keeps the state
-     * - Closing the tab resets it
-     */
-    const SESSION_KEY = "pirgl_about_gate_step";
+<footer>
+  <div class="footer-name">SEBASTIAN PIRGL</div>
+  <div class="footer-sub">Visca Barça i visca Catalunya.</div>
+</footer>
 
-    // Gate I (fixed)
-    const GATE1_ANSWER = "camel-lion-child";
-
-    // Gate II (random open question)
-    const gate2Pool = [
-      {
-        prompt: "In Zarathustra, what is the name of the spirit that says “No” (the great negation) before a new “Yes” becomes possible?",
-        answer: "lion",
-        help: "One word. Lowercase."
-      },
-      {
-        prompt: "In Zarathustra’s prologue, what does Zarathustra share with people before he speaks of the Übermensch?",
-        answer: "wisdom",
-        help: "One word. Lowercase."
-      },
-      {
-        prompt: "Nietzsche’s Zarathustra begins with a descent after how many years of solitude?",
-        answer: "10",
-        help: "Just a number."
-      }
-    ];
-
-    // Gate III (random multiple-choice)
-    const gate3Pool = [
-      {
-        prompt: "Which concept in Nietzsche is often described as the toughest test of affirmation: living your life again and again, identically?",
-        correct: "B",
-        choices: {
-          A: "Übermensch",
-          B: "Eternal return",
-          C: "Ressentiment",
-          D: "Last man"
-        }
-      },
-      {
-        prompt: "In Zarathustra, what name is given to the figure that embodies overcoming, self-creation, and a new table of values?",
-        correct: "A",
-        choices: {
-          A: "Übermensch",
-          B: "Eternal return",
-          C: "Ascetic ideal",
-          D: "Pity"
-        }
-      },
-      {
-        prompt: "Which phrase best matches Nietzsche’s core demand of radical affirmation (amor fati) when pushed to the extreme?",
-        correct: "C",
-        choices: {
-          A: "Know thyself",
-          B: "Deny the world",
-          C: "Yes to everything",
-          D: "Seek comfort"
-        }
-      }
-    ];
-
-    // --- utilities ---
-    const norm = (s) => (s || "")
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, " ")
-      .replace(/[–—]/g, "-");
-
-    function setStep(step){
-      sessionStorage.setItem(SESSION_KEY, String(step));
-    }
-
-    function getStep(){
-      const v = sessionStorage.getItem(SESSION_KEY);
-      const n = Number(v);
-      return Number.isFinite(n) && n >= 1 && n <= 4 ? n : 1; // 4 means unlocked
-    }
-
-    function pickOnce(key, pool){
-      // session-stable random: store chosen index in sessionStorage
-      const storeKey = "pirgl_about_" + key + "_idx";
-      let idx = sessionStorage.getItem(storeKey);
-      if (idx === null){
-        idx = String(Math.floor(Math.random() * pool.length));
-        sessionStorage.setItem(storeKey, idx);
-      }
-      const i = Math.max(0, Math.min(pool.length - 1, Number(idx)));
-      return pool[i];
-    }
-
-    // --- rendering ---
-    const gateCard = document.getElementById("gateCard");
-    const aboutContent = document.getElementById("aboutContent");
-
-    function render(){
-      const step = getStep();
-
-      // unlocked
-      if (step === 4){
-        gateCard.style.display = "none";
-        aboutContent.style.display = "block";
-        return;
-      }
-
-      gateCard.style.display = "block";
-      aboutContent.style.display = "none";
-
-      if (step === 1) renderGate1();
-      if (step === 2) renderGate2();
-      if (step === 3) renderGate3();
-    }
-
-    function renderGate1(){
-      gateCard.innerHTML = `
-        <div class="gate-title">Gate I</div>
-        <div class="gate-prompt">Three metamorphoses. Use a simple chain like: <strong>x-y-z</strong>.</div>
-
-        <div class="gate-row">
-          <input class="gate-input" id="gateInput" type="text" autocomplete="off" placeholder="Answer…" />
-          <button class="gate-btn" id="gateBtn">Continue</button>
-        </div>
-
-        <div class="gate-help">Hint: Zarathustra’s opening transformation sequence.</div>
-        <div class="gate-error" id="gateErr" style="display:none;"></div>
-      `;
-
-      const input = document.getElementById("gateInput");
-      const btn = document.getElementById("gateBtn");
-      const err = document.getElementById("gateErr");
-
-      const submit = () => {
-        const val = norm(input.value).replace(/_/g, "-");
-        if (val === GATE1_ANSWER){
-          err.style.display = "none";
-          setStep(2);
-          render();
-        } else {
-          err.textContent = "Not quite. Order matters.";
-          err.style.display = "block";
-        }
-      };
-
-      btn.addEventListener("click", submit);
-      input.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") submit();
-      });
-    }
-
-    function renderGate2(){
-      const q = pickOnce("gate2", gate2Pool);
-
-      gateCard.innerHTML = `
-        <div class="gate-title">Gate II</div>
-        <div class="gate-prompt">${q.prompt}</div>
-
-        <div class="gate-row">
-          <input class="gate-input" id="gateInput" type="text" autocomplete="off" placeholder="Answer…" />
-          <button class="gate-btn" id="gateBtn">Continue</button>
-        </div>
-
-        <div class="gate-help">${q.help || ""}</div>
-        <div class="gate-error" id="gateErr" style="display:none;"></div>
-      `;
-
-      const input = document.getElementById("gateInput");
-      const btn = document.getElementById("gateBtn");
-      const err = document.getElementById("gateErr");
-
-      const submit = () => {
-        const val = norm(input.value);
-        if (val === norm(q.answer)){
-          err.style.display = "none";
-          setStep(3);
-          render();
-        } else {
-          err.textContent = "No. Try again.";
-          err.style.display = "block";
-        }
-      };
-
-      btn.addEventListener("click", submit);
-      input.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") submit();
-      });
-    }
-
-    function renderGate3(){
-      const q = pickOnce("gate3", gate3Pool);
-
-      const choiceHtml = Object.entries(q.choices).map(([key, text]) => {
-        return `
-          <div class="choice" data-key="${key}">
-            <div class="choice-key">${key}</div>
-            <div class="choice-text">${text}</div>
-          </div>
-        `;
-      }).join("");
-
-      gateCard.innerHTML = `
-        <div class="gate-title">Gate III</div>
-        <div class="gate-prompt">${q.prompt}</div>
-
-        <div class="choices" id="choices">
-          ${choiceHtml}
-        </div>
-
-        <div class="gate-error" id="gateErr" style="display:none;"></div>
-      `;
-
-      const err = document.getElementById("gateErr");
-      const choices = document.getElementById("choices");
-
-      choices.addEventListener("click", (e) => {
-        const el = e.target.closest(".choice");
-        if (!el) return;
-
-        const picked = el.getAttribute("data-key");
-        if (picked === q.correct){
-          err.style.display = "none";
-          setStep(4); // unlocked
-          render();
-        } else {
-          err.textContent = "Incorrect.";
-          err.style.display = "block";
-        }
-      });
-    }
-
-    // init
-    render();
-  </script>
 </body>
 </html>
