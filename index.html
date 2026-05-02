@@ -3,71 +3,283 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PIRGL</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+  <title>PIRGL — Sebastian Pirgl</title>
+  <meta name="description" content="Sebastian Pirgl — quantitative finance, art, and the curious space between them." />
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="mask-icon" href="favicon.svg" color="#0d0d0a" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
 
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f6f6f4;
-      color: #111;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      padding: 32px;
-    }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet" />
 
-    .holding {
-      max-width: 720px;
-      text-align: center;
-    }
-
-    .brand {
-      font-size: 13px;
-      letter-spacing: 0.2em;
-      font-weight: 600;
-      opacity: 0.65;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: clamp(40px, 7vw, 72px);
-      font-weight: 500;
-      line-height: 1.04;
-      margin-bottom: 22px;
-    }
-
-    p {
-      font-size: 18px;
-      line-height: 1.7;
-      opacity: 0.72;
-    }
-
-    .note {
-      margin-top: 28px;
-      font-size: 14px;
-      opacity: 0.5;
-      letter-spacing: 0.02em;
-    }
-  </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="holding">
-    <div class="brand">PIRGL</div>
-    <h1>This website is currently under reconstruction.</h1>
-    <p>
-      A new version of pirgl.com is in progress.<br>
-      Please check back soon.
-    </p>
-  </main>
+<div class="page">
+
+  <!-- ====== LANDING / HERO ====== -->
+  <section class="landing" id="top">
+
+    <!-- Cycling scene backgrounds — each carries a paired quote -->
+    <div class="scenes" aria-hidden="true">
+      <div class="scene scene-morning  is-active" data-name="Morning Light"      data-author="Leonardo da Vinci"  data-source="Commonly attributed; source disputed."        data-quote="Simplicity is the ultimate sophistication."></div>
+      <div class="scene scene-blue"               data-name="Blue Hour"          data-author="Napoleon"           data-source="Attributed to Napoleon; St. Helena, 1817."             data-quote="China is a sleeping giant; let him sleep, for if he wakes, he will shake the World."></div>
+      <div class="scene scene-linen"              data-name="Linen Daylight"     data-author="Ronald Reagan"      data-source="Republican National Convention, 1988."        data-quote="Status quo, you know, is Latin for ‘the mess we’re in’."></div>
+      <div class="scene scene-slate"              data-name="Slate Storm"        data-author="Winston Churchill"  data-source="Widely attributed; not in his writings."      data-quote="If you're going through hell, keep going."></div>
+      <div class="scene scene-terra"              data-name="Terracotta Evening" data-author="Goethe"             data-source="Maximen und Reflexionen, 1833."               data-quote="Daring ideas are like chessmen moved forward; they may be beaten, but they may start a winning game."></div>
+      <div class="scene scene-marble"             data-name="Marble Gallery"     data-author="Jim Simons"         data-source="MIT lecture, 2010."                           data-quote="We have three criteria. If it’s publicly traded, liquid and amenable to modeling, we trade it."></div>
+      <div class="scene scene-mahogany"           data-name="Mahogany Study"     data-author="Marcus Aurelius"    data-source="Meditations, Book IV."                        data-quote="You have power over your mind — not outside events. Realize this, and you will find strength."></div>
+      <div class="scene scene-forest"             data-name="Forest Shade"       data-author="Benjamin Franklin"  data-source="Poor Richard’s Almanack, 1758."               data-quote="An investment in knowledge pays the best interest."></div>
+      <div class="scene scene-plum"               data-name="Velvet Plum"        data-author="Otto von Bismarck"  data-source="Conversation with Meyer von Waldeck, 1867."   data-quote="Politics is the art of the possible."></div>
+      <div class="scene scene-night"              data-name="Quiet Night"        data-author="Benoit Mandelbrot"  data-source="TED talk, 2010."                              data-quote="Beautiful, damn hard, increasingly useful. That's fractals."></div>
+    </div>
+    <div class="scene-grain" aria-hidden="true"></div>
+    <div class="scene-vignette" aria-hidden="true"></div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="header-left">
+        <a href="#top" class="logo"><span class="logo-letter">P</span><span class="logo-letter">I</span><span class="logo-letter">R</span><span class="logo-letter">G</span><span class="logo-letter">L</span></a>
+        <button class="menu-trigger" type="button" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Notes</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">CV</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- HERO CENTERPIECE — cycling quotes -->
+    <main class="hero">
+      <div class="hero-stage">
+        <blockquote class="hero-quote">
+          <p class="hero-quote-text">Simplicity is the ultimate sophistication.</p>
+          <div class="hero-quote-attribution">
+            <cite class="hero-quote-author">— Leonardo da Vinci</cite>
+            <cite class="hero-quote-source"></cite>
+          </div>
+        </blockquote>
+      </div>
+    </main>
+
+    <!-- BOTTOM-LEFT INTRO -->
+    <div class="hero-intro">
+      <p class="hero-intro-copy">
+        I value art in any way possible, Prague-based and Rotterdam-bound — MSc <strong>Quantitative Finance</strong> at Erasmus from September 2026.
+        Drawn to old paintings, careful prose, a quick eye for markets and questions that take a lifetime.
+      </p>
+      <a href="#about" class="hero-cta">
+        <span>Read more</span>
+        <span class="hero-cta-arrow">→</span>
+      </a>
+    </div>
+
+    <!-- BOTTOM-RIGHT META -->
+    <div class="hero-meta">© 2026 Sebastian Pirgl</div>
+
+    <!-- BOTTOM-CENTER NAV — scene label with arrows next to the index -->
+    <div class="scene-nav">
+      <div class="scene-label">
+        <span class="scene-label-name" id="sceneLabelName">Morning Light</span>
+        <div class="scene-label-controls">
+          <button class="scene-nav-arrow scene-nav-prev" type="button" aria-label="Previous quote">←</button>
+          <span class="scene-label-meta"><span id="sceneLabelIndex">01</span> / 10</span>
+          <button class="scene-nav-arrow scene-nav-next" type="button" aria-label="Next quote">→</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ====== ABOUT ====== -->
+  <section class="page-section about" id="about">
+    <div class="section-inner">
+      <div class="section-label"><span class="section-num">01</span><span>About</span></div>
+      <div class="about-grid">
+        <h2 class="reveal about-headline"><em>Wirklich ist, was wirkt.</em></h2>
+        <div class="about-copy">
+          <p class="reveal">Servus, I'm Sebastian — with roots in the Czech-Austrian borderlands, now based in Prague, about to begin an MSc in <strong>Quantitative Finance</strong> at Erasmus University Rotterdam this autumn. I enjoy challenging myself by solving complex problems — primarily quantitative, but often creative as well.</p>
+          <p class="reveal">Alongside my professional interests, I'm passionate about painting and reading, with a particular fascination for historical texts from the 16th to 20th centuries. I once dreamed of becoming a painter — but I chose economics as a discipline broad enough to satisfy my Renaissance instincts.</p>
+          <p class="reveal">I'm often asked when I'll return to Germany. My answer is honest: there's still work to do on myself first.</p>
+          <p class="reveal">I treat the quantitative side as my main professional path; history I keep close as a private pursuit, valued no less. I value excellence, intellectual curiosity, and the ability to approach challenges with a fresh, innovative perspective. I admire leadership rooted in clarity and resilience — values I associate with Hansi Flick's philosophy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== NOTES ====== -->
+  <section class="page-section work notes" id="work">
+    <div class="section-inner">
+      <div class="section-label"><span class="section-num">02</span><span>Notes</span></div>
+      <div class="work-list">
+        <a class="project reveal">
+          <div class="project-year">2025 →</div>
+          <div class="project-info">
+            <div class="project-title">Beyond the Plan: Czech–Austrian Trade, 1963–1995</div>
+            <div class="project-desc">Quantitative-historical research in cooperation with the University of Graz. Ongoing.</div>
+          </div>
+          <div class="project-tag">Research</div>
+        </a>
+        <a class="project reveal" href="https://dodo.is.cuni.cz/handle/20.500.11956/203041?locale-attribute=en" target="_blank" rel="noopener">
+          <div class="project-year">2025</div>
+          <div class="project-info">
+            <div class="project-title">The Geist of Economy: Germany and France in the 19th century</div>
+            <div class="project-desc">Bachelor's Thesis, Institute of Economic Studies — Charles University.</div>
+          </div>
+          <div class="project-tag">Thesis</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PROJECTS (placeholder) ====== -->
+  <section class="page-section work projects" id="projects">
+    <div class="section-inner">
+      <div class="section-label"><span class="section-num">03</span><span>Projects</span></div>
+      <div class="notes-empty reveal">
+        <h2 class="notes-headline">A space for projects in the making.</h2>
+        <p>Personal experiments — code, data, and the occasional cross between markets and art. Not all of them ready to share yet.</p>
+        <p class="notes-coming"><em>Further information about ‘Pirgl &amp; Fromm’ will be released as soon as time permits.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CV / EXPERIENCE ====== -->
+  <section class="page-section experience" id="experience">
+    <div class="section-inner">
+      <div class="cv-progress" aria-hidden="true"></div>
+      <div class="section-label"><span class="section-num">04</span><span>Curriculum Vitae</span></div>
+      <div class="exp-list">
+        <div class="exp reveal">
+          <div class="exp-period">Sep 2026 →</div>
+          <div class="exp-body">
+            <div class="exp-role">MSc, Quantitative Finance</div>
+            <div class="exp-company">Erasmus University Rotterdam</div>
+            <p class="exp-desc">Starting September 2026.</p>
+          </div>
+        </div>
+        <div class="exp reveal">
+          <div class="exp-period">Mar 2026 →</div>
+          <div class="exp-body">
+            <div class="exp-role">Research Assistant</div>
+            <div class="exp-company">University of Graz</div>
+            <p class="exp-desc">Quantitative-historical research on Austria's Eastern Trade.</p>
+          </div>
+        </div>
+        <div class="exp reveal">
+          <div class="exp-period">2025 →</div>
+          <div class="exp-body">
+            <div class="exp-role">MSc, Economics and Finance</div>
+            <div class="exp-company">Charles University, Institute of Economic Studies — Prague</div>
+            <p class="exp-desc">Specialization: Financial Markets and Data Analysis.</p>
+          </div>
+        </div>
+        <div class="exp reveal">
+          <div class="exp-period">2025</div>
+          <div class="exp-body">
+            <div class="exp-role">Data Analytics for Sustainable Finance</div>
+            <div class="exp-company">University of Udine + International Partners</div>
+            <p class="exp-desc">Blended Intensive Programme — online coursework plus an on-site week in Pordenone, including Bloomberg Terminal training.</p>
+          </div>
+        </div>
+        <div class="exp reveal">
+          <div class="exp-period">2024 — 2025</div>
+          <div class="exp-body">
+            <div class="exp-role">Exchange Programme, Economics</div>
+            <div class="exp-company">Toulouse School of Economics</div>
+          </div>
+        </div>
+        <div class="exp reveal">
+          <div class="exp-period">2024</div>
+          <div class="exp-body">
+            <div class="exp-role">Exchange Programme, Economics</div>
+            <div class="exp-company">Ludwig Maximilian University of Munich</div>
+          </div>
+        </div>
+        <div class="exp reveal">
+          <div class="exp-period">2021 — 2025</div>
+          <div class="exp-body">
+            <div class="exp-role">BSc, Economics and Finance</div>
+            <div class="exp-company">Charles University, Institute of Economic Studies — Prague</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-meta reveal">
+        <div class="cv-meta-row">
+          <div class="cv-meta-label">Tools</div>
+          <div class="cv-meta-value">R · Python · Julia · Bloomberg Terminal · time series · panel data · causal inference · volatility modelling</div>
+        </div>
+        <div class="cv-meta-row">
+          <div class="cv-meta-label">Languages</div>
+          <div class="cv-meta-value">Czech (native) · English (advanced) · German (intermediate) · French (elementary) · Italian (elementary)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT ====== -->
+  <section class="page-section contact" id="contact">
+    <div class="section-inner">
+      <div class="section-label"><span class="section-num">05</span><span>Contact</span></div>
+      <h2 class="reveal contact-headline">Open to ideas and questions;<br/><em>Schreib mir.</em></h2>
+      <p class="reveal contact-subtitle">Write to me.</p>
+      <a class="contact-cta reveal" href="mailto:info@pirgl.com">
+        <span>info@pirgl.com</span>
+        <span class="arrow">→</span>
+      </a>
+      <div class="socials reveal">
+        <a href="https://linkedin.com/in/sebastianpirgl" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PAGE FOOTER ====== -->
+  <footer class="page-footer">
+    <div class="page-footer-inner">
+      <div>© <span id="year"></span> Sebastian Pirgl</div>
+      <div><a href="#top" class="back-to-top">Back to top ↑</a></div>
+    </div>
+  </footer>
+
+</div>
+
+  <!-- ====== MENU SHEET ====== -->
+  <section class="menu-sheet" id="menuSheet" aria-hidden="true">
+    <div class="menu-sheet-inner">
+      <div class="menu-top">
+        <span class="menu-home">CLOSE</span>
+      </div>
+      <nav class="menu-nav">
+        <ul>
+          <li><a href="#about" class="menu-link" data-target="about"><span class="menu-num">01</span><span class="menu-word">About</span></a></li>
+          <li><a href="#work" class="menu-link" data-target="work"><span class="menu-num">02</span><span class="menu-word">Notes</span></a></li>
+          <li><a href="#projects" class="menu-link" data-target="projects"><span class="menu-num">03</span><span class="menu-word">Projects</span></a></li>
+          <li><a href="#experience" class="menu-link" data-target="experience"><span class="menu-num">04</span><span class="menu-word">CV</span></a></li>
+          <li><a href="#contact" class="menu-link" data-target="contact"><span class="menu-num">05</span><span class="menu-word">Contact</span></a></li>
+        </ul>
+      </nav>
+      <div class="menu-foot">
+        <span>info@pirgl.com</span>
+        <span>2026</span>
+      </div>
+      <img class="menu-eagle" src="favicon.svg" alt="" aria-hidden="true" />
+    </div>
+  </section>
+
+  <div class="cursor-click cursor-click-white" id="menuClick">CLICK</div>
+
+  <script src="script.js"></script>
 </body>
 </html>
