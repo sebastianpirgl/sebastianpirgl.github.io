@@ -50,16 +50,16 @@ button { font: inherit; }
    PAGE WRAPPER (transforms when menu opens)
    ============================================================ */
 .page {
+  transform: translate3d(0, 0, 0);   /* GPU layer — keeps Chrome smooth */
+  will-change: transform, opacity;
   transition:
     transform 0.78s var(--ease),
-    filter 0.78s var(--ease),
     opacity 0.78s var(--ease);
 }
 
 body.menu-open .page {
-  transform: translateY(-2.5vh) scale(0.988);
-  filter: blur(2px);
-  opacity: 0.78;
+  transform: translate3d(0, -2.5vh, 0) scale(0.988);
+  opacity: 0.74;
 }
 
 /* ============================================================
@@ -601,13 +601,14 @@ body.menu-open .page {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  transform: translateY(100%);
+  transform: translate3d(0, 100%, 0);
+  will-change: transform;
   transition: transform 0.78s var(--ease);
   pointer-events: none;
 }
 
 .menu-open .menu-sheet {
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
   pointer-events: auto;
 }
 
