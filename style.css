@@ -1517,4 +1517,18 @@ body.menu-open .page {
   .island-divider { background: rgba(255, 255, 255, 0.14); }
 
   /* Section borders use the inverted line color automatically via var() */
+
+  /* Hero/landing: scenes stay dark, so text and lines inside MUST stay cream.
+     Scoping the vars here reinstates the dark-mode palette for everything
+     inside .landing via the normal CSS cascade (logo, hamburger, hero quote,
+     scene labels, scene-nav arrows, READ MORE CTA, footer-overlay). */
+  .landing {
+    --text:      #f4f1eb;
+    --text-soft: rgba(244, 241, 235, 0.92);
+    --text-mid:  rgba(244, 241, 235, 0.62);
+    --text-dim:  rgba(244, 241, 235, 0.42);
+    --line:      rgba(244, 241, 235, 0.16);
+    --line-soft: rgba(244, 241, 235, 0.06);
+    color: var(--text);
+  }
 }
