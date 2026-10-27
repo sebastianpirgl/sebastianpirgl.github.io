@@ -325,15 +325,23 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
    FLOATING ISLAND NAV
    ============================================================ */
 
-/* ---------- Shrink + lift on scroll ---------- */
+/* ---------- Shrink + lift on scroll + reveal PIRGL past hero ---------- */
 (function () {
   const nav = document.querySelector(".island-nav");
   if (!nav) return;
+  const hero = document.getElementById("top");
   function onScroll() {
     if (window.scrollY > 24) nav.classList.add("is-scrolled");
     else nav.classList.remove("is-scrolled");
+    // Reveal PIRGL + divider once we've scrolled past the hero section
+    if (hero) {
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      if (heroBottom < 60) nav.classList.add("is-past-hero");
+      else nav.classList.remove("is-past-hero");
+    }
   }
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
   onScroll();
 })();
 

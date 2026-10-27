@@ -1351,6 +1351,30 @@ body.menu-open .page {
   background: rgba(244, 241, 235, 0.14);
 }
 
+/* Hide PIRGL + divider while the hero is in view; slide in once we scroll past */
+.island-brand,
+.island-divider {
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  margin-right: -18px; /* collapse the gap left by the nav's `gap: 18px` */
+  transform: translateX(-6px);
+  pointer-events: none;
+  transition:
+    max-width 0.5s var(--ease),
+    opacity 0.45s var(--ease),
+    margin-right 0.5s var(--ease),
+    transform 0.5s var(--ease);
+}
+.island-nav.is-past-hero .island-brand,
+.island-nav.is-past-hero .island-divider {
+  max-width: 120px;
+  opacity: 1;
+  margin-right: 0;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
 .island-list {
   position: relative;
   list-style: none;
