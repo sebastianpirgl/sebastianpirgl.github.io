@@ -1458,3 +1458,63 @@ body.menu-open .page {
   .island-link { padding: 6px 10px; font-size: 10.5px; letter-spacing: 0.14em; }
   .island-divider { height: 12px; }
 }
+
+
+/* ============================================================
+   LIGHT MODE (system preference)
+   Only overrides base color variables + a few island tints.
+   Hero cycling scenes keep their dark gradients — they are their
+   own atmospheric layer and shouldn't flip.
+   ============================================================ */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-dark: #f1ede3;         /* warm cream */
+    --bg-deep: #e8e2d4;         /* slightly darker cream, for overscroll + footer */
+    --text:      #141311;        /* warm near-black */
+    --text-soft: rgba(20, 19, 17, 0.86);
+    --text-mid:  rgba(20, 19, 17, 0.58);
+    --text-dim:  rgba(20, 19, 17, 0.42);
+    --line:      rgba(20, 19, 17, 0.16);
+    --line-soft: rgba(20, 19, 17, 0.08);
+    --sage:      #52614e;
+    --sage-deep: #37432f;
+  }
+
+  /* Island nav: dark glass pill on light bg — inverted contrast */
+  .island-nav {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.10) 0%,
+        rgba(255, 255, 255, 0.02) 45%,
+        rgba(0, 0, 0, 0.10) 100%
+      ),
+      rgba(20, 19, 17, 0.62);
+    box-shadow:
+      inset 0 1.2px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+      0 14px 50px -18px rgba(0, 0, 0, 0.25),
+      0 4px 14px rgba(0, 0, 0, 0.12),
+      0 0 0 1px rgba(0, 0, 0, 0.06);
+  }
+  .island-nav.is-scrolled {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0.02) 45%,
+        rgba(0, 0, 0, 0.12) 100%
+      ),
+      rgba(20, 19, 17, 0.74);
+  }
+
+  /* Island text stays cream (reads over dark glass) */
+  .island-brand { color: #f4f1eb; }
+  .island-link {
+    color: color-mix(in oklab, rgba(244, 241, 235, 0.55), #f4f1eb calc(var(--link-glow) * 100%));
+  }
+  .island-link:hover { color: #ffffff; }
+  .island-divider { background: rgba(255, 255, 255, 0.14); }
+
+  /* Section borders use the inverted line color automatically via var() */
+}

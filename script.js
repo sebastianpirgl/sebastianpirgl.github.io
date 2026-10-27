@@ -153,6 +153,9 @@ document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el))
 /* ---------- Subtle scroll-driven hue shift on --bg-dark ---------- */
 (function () {
   const root = document.documentElement;
+  // Skip the warm→cool hue shift in system light mode — let the CSS vars rule.
+  const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  if (prefersLight) return;
   // Warm at top, cool at bottom
   const warm = { r: 12, g: 13, b: 10 };  // #0c0d0a
   const cool = { r: 8,  g: 11, b: 22 };  // #080b16
