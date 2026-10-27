@@ -1254,3 +1254,183 @@ body.menu-open .page {
     padding: 24px 22px;
   }
 }
+
+
+/* ============================================================
+   FLOATING ISLAND NAV — Liquid Glass
+   ============================================================ */
+.island-nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 18px 10px 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 42%,
+      rgba(255, 255, 255, 0.00) 60%,
+      rgba(0, 0, 0, 0.08) 100%
+    ),
+    rgba(16, 17, 22, 0.38);
+
+  border: 1px solid transparent;
+  border-radius: 999px;
+
+  backdrop-filter: blur(26px) saturate(180%) contrast(1.05) url(#liquid-glass-nav);
+  -webkit-backdrop-filter: blur(26px) saturate(180%) contrast(1.05);
+
+  box-shadow:
+    inset 0 1.2px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    inset 1px 0 0 rgba(255, 255, 255, 0.04),
+    inset -1px 0 0 rgba(255, 255, 255, 0.04),
+    0 14px 50px -18px rgba(0, 0, 0, 0.6),
+    0 4px 14px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+
+  transition:
+    transform 0.4s var(--ease),
+    padding 0.4s var(--ease),
+    background 0.4s var(--ease),
+    box-shadow 0.4s var(--ease),
+    top 0.4s var(--ease);
+}
+
+.island-nav.is-scrolled {
+  top: 14px;
+  padding: 8px 14px 8px 18px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.09) 0%,
+      rgba(255, 255, 255, 0.02) 45%,
+      rgba(0, 0, 0, 0.10) 100%
+    ),
+    rgba(16, 17, 22, 0.48);
+  box-shadow:
+    inset 0 1.2px 0 rgba(255, 255, 255, 0.30),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    inset 1px 0 0 rgba(255, 255, 255, 0.05),
+    inset -1px 0 0 rgba(255, 255, 255, 0.05),
+    0 18px 56px -18px rgba(0, 0, 0, 0.7),
+    0 5px 16px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.island-brand {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  font-size: 12px;
+  color: var(--text);
+  text-decoration: none;
+  padding: 2px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s var(--ease);
+}
+.island-brand-letter {
+  display: inline-block;
+  transition: transform 0.18s var(--ease);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+.island-brand:hover { color: #fff; }
+
+.island-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(244, 241, 235, 0.14);
+}
+
+.island-list {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  gap: 2px;
+}
+
+.island-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background:
+    radial-gradient(120% 180% at 30% -20%,
+      rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 50%),
+    linear-gradient(180deg,
+      rgba(255,255,255,0.22) 0%,
+      rgba(255,255,255,0.08) 40%,
+      rgba(255,255,255,0.02) 70%,
+      rgba(255,255,255,0.10) 100%);
+  box-shadow:
+    inset 0 1.2px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    inset 1px 0 0 rgba(255, 255, 255, 0.08),
+    inset -1px 0 0 rgba(255, 255, 255, 0.08),
+    0 3px 14px rgba(0, 0, 0, 0.3),
+    0 0 0 0.5px rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px) saturate(200%) brightness(1.12) url(#liquid-glass-lens);
+  -webkit-backdrop-filter: blur(8px) saturate(200%) brightness(1.12);
+  transform: translateX(0);
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+.island-indicator::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg,
+    transparent 20%,
+    rgba(255,255,255,0.08) 50%,
+    transparent 80%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.island-link {
+  --link-glow: 0;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 7px 14px;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--text-dim), var(--text) calc(var(--link-glow) * 100%));
+  text-decoration: none;
+  border-radius: 999px;
+  transition: color 0.15s linear;
+}
+.island-link:hover { color: var(--text); }
+
+@supports not (backdrop-filter: blur(10px)) {
+  .island-nav { background: rgba(14, 15, 18, 0.92); }
+  .island-indicator { background: rgba(255, 255, 255, 0.12); }
+}
+
+/* Mobile — tighten up */
+@media (max-width: 640px) {
+  .island-nav { top: 12px; gap: 10px; padding: 8px 10px 8px 14px; }
+  .island-brand { font-size: 11px; letter-spacing: 0.18em; }
+  .island-link { padding: 6px 10px; font-size: 10.5px; letter-spacing: 0.14em; }
+  .island-divider { height: 12px; }
+}

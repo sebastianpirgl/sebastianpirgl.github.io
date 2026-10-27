@@ -319,3 +319,100 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
     targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 });
+
+
+/* ============================================================
+   FLOATING ISLAND NAV
+   ============================================================ */
+
+/* ---------- Shrink + lift on scroll ---------- */
+(function () {
+  const nav = document.querySelector(".island-nav");
+  if (!nav) return;
+  function onScroll() {
+    if (window.scrollY > 24) nav.classList.add("is-scrolled");
+    else nav.classList.remove("is-scrolled");
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ---------- Dock-style magnify on island PIRGL letters ---------- */
+(function () {
+  const brand = document.querySelector(".island-brand");
+  if (!brand) return;
+  const letters = Array.from(brand.querySelectorAll(".island-brand-letter"));
+  if (!letters.length) return;
+  const MAX_DIST = 34;
+  const MAX_SCALE = 1.55;
+  brand.addEventListener("mousemove", (e) => {
+    const cx = e.clientX;
+    letters.forEach((l) => {
+      const r = l.getBoundingClientRect();
+      const c = r.left + r.width / 2;
+      const d = Math.abs(cx - c);
+      const p = Math.max(0, 1 - d / MAX_DIST);
+      const scale = 1 + p * (MAX_SCALE - 1);
+      l.style.transform = `scale(${scale.toFixed(3)})`;
+    });
+  });
+  brand.addEventListener("mouseleave", () => {
+    letters.forEach((l) => { l.style.transform = ""; });
+  });
+})();
+
+/* ---------- Continuous Liquid Glass indicator ----------
+   Bubble glides smoothly between links based on scroll position. */
+(function () {
+  const links = Array.from(document.querySelectorAll(".island-link"));
+  if (!links.length) return;
+  const sections = links.map(l => document.getElementById(l.dataset.section)).filter(Boolean);
+  const indicator = document.querySelector(".island-indicator");
+  const list = document.querySelector(".island-list");
+  if (!indicator || !list || sections.length !== links.length) return;
+
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const clamp01 = (x) => Math.max(0, Math.min(1, x));
+
+  function currentFloatIndex() {
+    const viewAnchor = 1;
+    for (let i = 0; i < sections.length - 1; i++) {
+      const a = sections[i].getBoundingClientRect().top;
+      const b = sections[i + 1].getBoundingClientRect().top;
+      if (b > viewAnchor) {
+        const span = Math.max(1, b - a);
+        return i + clamp01((viewAnchor - a) / span);
+      }
+    }
+    return sections.length - 1;
+  }
+
+  function position() {
+    const t = currentFloatIndex();
+    const i = Math.min(Math.floor(t), links.length - 2);
+    const frac = clamp01(t - i);
+    const listRect = list.getBoundingClientRect();
+    const a = links[i].getBoundingClientRect();
+    const b = links[Math.min(i + 1, links.length - 1)].getBoundingClientRect();
+    const left = lerp(a.left - listRect.left, b.left - listRect.left, frac);
+    const width = lerp(a.width, b.width, frac);
+    indicator.style.transform = `translateX(${left}px)`;
+    indicator.style.width = `${width}px`;
+    links.forEach((l, idx) => {
+      let p = 0;
+      if (idx === i) p = 1 - frac;
+      else if (idx === i + 1) p = frac;
+      l.style.setProperty("--link-glow", p.toFixed(3));
+    });
+  }
+
+  let rafId = null;
+  function schedule() {
+    if (rafId) return;
+    rafId = requestAnimationFrame(() => { rafId = null; position(); });
+  }
+  window.addEventListener("scroll", schedule, { passive: true });
+  window.addEventListener("resize", schedule);
+  window.addEventListener("load", position);
+  position();
+})();

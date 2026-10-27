@@ -20,6 +20,37 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+<!-- Liquid Glass filter definitions -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="liquid-glass-nav" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise" />
+      <feGaussianBlur in="noise" stdDeviation="2" result="smooth" />
+      <feDisplacementMap in="SourceGraphic" in2="smooth" scale="10" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+    <filter id="liquid-glass-lens" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.018" numOctaves="2" seed="12" result="noise2" />
+      <feGaussianBlur in="noise2" stdDeviation="1.5" result="smooth2" />
+      <feDisplacementMap in="SourceGraphic" in2="smooth2" scale="18" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+</svg>
+
+<!-- Floating island nav -->
+<nav class="island-nav" aria-label="Primary">
+  <a href="#top" class="island-brand" aria-label="PIRGL"><span class="island-brand-letter">P</span><span class="island-brand-letter">I</span><span class="island-brand-letter">R</span><span class="island-brand-letter">G</span><span class="island-brand-letter">L</span></a>
+  <div class="island-divider" aria-hidden="true"></div>
+  <ul class="island-list">
+    <span class="island-indicator" aria-hidden="true"></span>
+    <li><a href="#about"      class="island-link" data-section="about">About</a></li>
+    <li><a href="#work"       class="island-link" data-section="work">Notes</a></li>
+    <li><a href="#projects"   class="island-link" data-section="projects">Projects</a></li>
+    <li><a href="#experience" class="island-link" data-section="experience">CV</a></li>
+    <li><a href="#contact"    class="island-link" data-section="contact">Contact</a></li>
+  </ul>
+</nav>
+
 <div class="page">
 
   <!-- ====== LANDING / HERO ====== -->
@@ -49,15 +80,6 @@
           <span></span><span></span><span></span>
         </button>
       </div>
-      <nav class="site-nav" aria-label="Primary">
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#work">Notes</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#experience">CV</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
     </header>
 
     <!-- HERO CENTERPIECE — cycling quotes -->
