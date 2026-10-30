@@ -399,6 +399,9 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
   }
 
   function position() {
+    const nav = document.querySelector(".island-nav");
+    const pastHero = nav && nav.classList.contains("is-past-hero");
+
     const t = currentFloatIndex();
     const i = Math.min(Math.floor(t), links.length - 2);
     const frac = clamp01(t - i);
@@ -407,8 +410,14 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
     const b = links[Math.min(i + 1, links.length - 1)].getBoundingClientRect();
     const left = lerp(a.left - listRect.left, b.left - listRect.left, frac);
     const width = lerp(a.width, b.width, frac);
-    indicator.style.transform = `translateX(${left}px)`;
+    indicator.style.setProperty("--i-x", `${left}px`);
     indicator.style.width = `${width}px`;
+
+    // On hero (bubble hidden), keep all links uniformly dim — no highlighted one.
+    if (!pastHero) {
+      links.forEach((l) => l.style.setProperty("--link-glow", "0"));
+      return;
+    }
     links.forEach((l, idx) => {
       let p = 0;
       if (idx === i) p = 1 - frac;
@@ -426,4 +435,48 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
   window.addEventListener("resize", schedule);
   window.addEventListener("load", position);
   position();
+})();
+
+
+/* ============================================================
+   NEW FEATURES — Lenis, hero quote parallax, View Transitions, prefetch
+   ============================================================ */
+
+/* 2) LENIS smooth scroll ---------------------------------------- */
+let __lenis = null;
+(function initLenis() {
+  if (typeof Lenis === "undefined") return;
+  __lenis = new Lenis({
+    duration: 1.15,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    smoothTouch: false,
+  });
+  function raf(t) { __lenis.raf(t); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+})();
+
+/* 6) VIEW TRANSITIONS on nav clicks + 8) PREFETCH on hover ----- */
+(function navEnhancements() {
+  // Collect all internal-anchor nav links (island + menu-sheet + hero CTA)
+  const navLinks = document.querySelectorAll(
+    '.island-link, .menu-link, a[href^="#"]'
+  );
+
+  navLinks.forEach((a) => {
+    const href = a.getAttribute("href") || "";
+    const target = href.startsWith("#") ? document.querySelector(href) : null;
+    if (!target) return;
+
+    // Prefetch on hover: warm up layout + nudge the browser to paint
+    a.addEventListener("mouseenter", () => {
+      target.getBoundingClientRect();                  // force layout cache
+      target.style.willChange = "transform, opacity";  // GPU hint
+      setTimeout(() => (target.style.willChange = ""), 1200);
+    }, { passive: true });
+
+    // Note: no View Transitions on in-page anchor clicks — VT snapshots the whole
+    // page and crossfades, which causes a visible flash and misaligns the island
+    // indicator mid-transition. Native smooth scroll via Lenis is already enough.
+  });
 })();

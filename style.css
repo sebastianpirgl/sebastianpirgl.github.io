@@ -653,7 +653,7 @@ body.menu-open .page {
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 0 34px;
+  padding: 0 34px 0 96px;
 }
 
 .menu-nav ul {
@@ -661,7 +661,7 @@ body.menu-open .page {
   margin: 0; padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -672,7 +672,7 @@ body.menu-open .page {
   padding: 10px 0;
   font-family: "Fraunces", Georgia, serif;
   font-weight: 400;
-  font-size: clamp(40px, 8vw, 88px);
+  font-size: clamp(54px, 9vw, 120px);
   line-height: 1.0;
   letter-spacing: -0.02em;
   color: #0f1412;
@@ -688,7 +688,7 @@ body.menu-open .page {
 
 .menu-link .menu-num {
   font-family: "Inter", sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   letter-spacing: 0.18em;
   font-weight: 500;
   opacity: 0.5;
@@ -716,9 +716,9 @@ body.menu-open .page {
 /* Heraldic eagle mark — right side of menu sheet */
 .menu-eagle {
   position: absolute;
-  right: 5%;
-  bottom: 14%;
-  width: clamp(150px, 20vw, 260px);
+  right: 3%;
+  bottom: 5%;
+  width: clamp(110px, 13vw, 200px);
   height: auto;
   mix-blend-mode: multiply;
   opacity: 0.72;
@@ -1391,6 +1391,9 @@ body.menu-open .page {
   height: 100%;
   width: 0;
   border-radius: 999px;
+  /* Hidden by default on hero; slides in from the right once .is-past-hero fires */
+  opacity: 0;
+  transform: translateX(calc(var(--i-x, 0px) + 28px));
   background:
     radial-gradient(120% 180% at 30% -20%,
       rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 50%),
@@ -1408,12 +1411,18 @@ body.menu-open .page {
     0 0 0 0.5px rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(8px) saturate(200%) brightness(1.12) url(#liquid-glass-lens);
   -webkit-backdrop-filter: blur(8px) saturate(200%) brightness(1.12);
-  transform: translateX(0);
   transition:
-    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
-    width 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.38s var(--ease);
   pointer-events: none;
   z-index: 0;
+}
+
+/* Reveal — bubble glides in from the right and settles on ABOUT */
+.island-nav.is-past-hero .island-indicator {
+  opacity: 1;
+  transform: translateX(var(--i-x, 0px));
 }
 .island-indicator::after {
   content: "";
@@ -1532,3 +1541,25 @@ body.menu-open .page {
     color: var(--text);
   }
 }
+
+
+/* ============================================================
+   NEW FEATURES — grain, hero quote bloom, view transitions
+   ============================================================ */
+
+/* 1) FILM GRAIN — full-screen analog texture overlay */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 200px 200px;
+}
+
+/* Lenis — recommended fix so smooth-scroll library coexists with native scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
