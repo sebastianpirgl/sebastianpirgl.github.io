@@ -336,11 +336,23 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
   function onScroll() {
     if (window.scrollY > 24) nav.classList.add("is-scrolled");
     else nav.classList.remove("is-scrolled");
-    // Reveal PIRGL + divider once we've scrolled past the hero section
+
+    // Continuous reveal: as hero exits viewport, --reveal glides from 0 to 1.
+    // Reveal starts when hero bottom is 70% down the viewport, completes just
+    // after the hero clears the top. The island brand + bubble opacity/offset
+    // are driven directly by this var — no sudden class flip, no "pop".
     if (hero) {
       const heroBottom = hero.getBoundingClientRect().bottom;
-      if (heroBottom < 60) nav.classList.add("is-past-hero");
-      else nav.classList.remove("is-past-hero");
+      const vh = window.innerHeight;
+      const start = vh * 0.65;   // begin fade-in (hero bottom here = reveal 0)
+      const end   = vh * 0.05;   // fully revealed (hero bottom here = reveal 1)
+      const t = Math.max(0, Math.min(1, (start - heroBottom) / (start - end)));
+      // Ease-out for a soft arrival (fast at start of scroll range, slow at end)
+      const eased = 1 - Math.pow(1 - t, 2);
+      nav.style.setProperty("--reveal", eased.toFixed(3));
+      // Keep .is-past-hero as a boolean flag at the mid-point for other logic
+      // (indicator per-link glow, pointer-events on brand).
+      nav.classList.toggle("is-past-hero", eased > 0.5);
     }
   }
   window.addEventListener("scroll", onScroll, { passive: true });
